@@ -1,4 +1,5 @@
 import './driversList.scss'
+import DriversItem from "../DriversItem/index.jsx";
 function DriversList(){
   return (
     <>
@@ -8,7 +9,10 @@ function DriversList(){
           <i className={"ph-bold ph-dots-three"}></i>
         </h4>
         <div className={'driver-list'}>
-
+          <DriversItem/>
+          <DriversItem/>
+          <DriversItem/>
+          <DriversItem/>
         </div>
       </div>
     </>
