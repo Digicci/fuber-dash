@@ -73,8 +73,8 @@ function useProvideAuthAdmin(){
     setAdmin(null);
     navigate("/login");
   }
-  const isConnected = async () => {
-     await getAdmin()
+  const isConnected = () => {
+    getAdmin()
     return auth.auth
   }
 

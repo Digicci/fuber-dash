@@ -25,7 +25,7 @@ function FormLogin(){
       navigate('/',{replace:true})
     }
     csrf.getCsrfToken()
-  }, [authAdmin.auth])
+  }, [])
   const handleChange = (e,field) => {
     const state = {...admin}
     if(field === "mail"){
