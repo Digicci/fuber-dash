@@ -1,4 +1,6 @@
 import "./offre.scss"
+import OffreList from "../../components/OffreList/index.jsx";
+import AddOffre from "../../components/AddOffre/index.jsx";
 function Offre(){
   return (
     <>
@@ -8,6 +10,8 @@ function Offre(){
             Offre
           </h1>
         </div>
+        <AddOffre/>
+        <OffreList/>
       </div>
     </>
   );

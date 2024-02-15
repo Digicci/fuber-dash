@@ -1,0 +1,31 @@
+label{
+  color: var(--secondary-color);
+  width: 100%;
+}
+form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+select {
+  border: 1px solid var(--fourth-color);
+  border-radius: 5px;
+  height: 34px;
+}
+.select-add {
+  display: flex;
+  align-items: flex-end;
+  padding-top: 1.7rem;
+}
+
+.button-add {
+  padding-top: 1.7rem;
+  margin-left: .2rem
+}
+
+button {
+  border: none;
+  border-radius: 5px;
+  padding: .5rem 0 ;
+}
+

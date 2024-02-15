@@ -9,6 +9,7 @@ import {ProvideCsrf} from "./utils/hook/useCsrf.jsx";
 import {ProvideAxios} from "./utils/hook/useAxios.jsx";
 import {ProvideAuthAdmin} from "./utils/hook/useAuthAdmin.jsx";
 import {ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -18,7 +19,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Provider store={store}>
             <ProvideAuthAdmin>
               <App />
-              <ToastContainer autoClose={5000}/>
+              <ToastContainer autoClose={3000}/>
             </ProvideAuthAdmin>
           </Provider>
         </ProvideAxios>

@@ -101,7 +101,7 @@ function FormLogin(){
   }
   return(
     <>
-      <form className={'container-form'}>
+      <form method={'POST'} className={'container-form'}>
         <div className={"div-input"}>
           <input
             type={'email'}

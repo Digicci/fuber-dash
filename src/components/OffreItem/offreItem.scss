@@ -1,0 +1,42 @@
+.offre-item{
+  display: flex;
+  width: 100%;
+}
+
+.offres{
+  display: flex;
+  padding: .8rem 1rem;
+  border-radius: 10px;
+  overflow-wrap: break-word;
+  width: 100%;
+}
+
+.details-offre{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+  margin: 1rem;
+  i{
+    font-size: 1.5rem;
+  }
+  @media (max-width: 768px) {
+    width: 15%;
+    i{
+      font-size: 2rem;
+    }
+  }
+}
+
+.text-offre{
+  font-size: .92rem;
+  font-weight: 600;
+  color: var(--secondary-color);
+}
+
+.plus-details-offre{
+  border: none;
+  background-color: var(--thridly-color);
+  color: var(--secondary-color);
+  cursor: pointer;
+}
