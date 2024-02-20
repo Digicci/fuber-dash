@@ -11,6 +11,6 @@ export const setAuth = (auth) => {
 export const setEntreprise = (entreprise) => {
   return {
     type: SET_ENTREPRISE,
-    payload: {...entreprise},
+    payload: entreprise,
   }
 }

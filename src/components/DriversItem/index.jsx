@@ -1,7 +1,7 @@
 import profile from "../../assets/drivercard.webp"
 import './driversItem.scss'
 
-function DriversItem(){
+function DriversItem({item}){
   return (
     <>
       <div className={'container-item'}>
@@ -10,13 +10,17 @@ function DriversItem(){
             <img src={profile} alt={'Image de profile'}/>
           </div>
           <div className={'details'}>
-            <p className={'text'}>Driver Description</p>
+            <p className={'text'}>
+              {item.nom} {item.prenom}
+            </p>
           </div>
           <div className={'details'}>
-            <p className={'text'}>Driver Description</p>
+            <p className={'text'}>
+              {item.nom_commercial}
+            </p>
           </div>
           <div className={'details'}>
-            <p className={'text'}>Driver Description</p>
+            <p className={'text'}>{item.mail}</p>
           </div>
           <div className={'details'}>
             <button className={'plus-details'}>

@@ -9,6 +9,7 @@ const AuthContext = createContext();
 const basePath = "admin";
 
 
+// eslint-disable-next-line react/prop-types
 export function ProvideAuthAdmin({children}) {
   const authAdmin = useProvideAuthAdmin();
   return <AuthContext.Provider value={authAdmin}>{children}</AuthContext.Provider>
@@ -45,7 +46,7 @@ function useProvideAuthAdmin(){
       axios.get(`${basePath}/get`).then((res) =>{
         if(res.status === 401) {
           dispatch(setAuth(null));
-          localStorage.removeItem('admin_token');
+          localStorage.removeItem('admin_token');z
         }else if(res.data) {
           dispatch(setAuth(res.data));
         }else {

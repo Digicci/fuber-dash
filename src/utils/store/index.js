@@ -3,10 +3,12 @@ import {composeWithDevTools} from "@redux-devtools/extension";
 import {thunk} from "redux-thunk";
 
 import AuthReducer from "./reducers/AuthReducer.js";
+import EntrepriseReducer from "./reducers/EntrepriseReducer.js";
 
 const store = createStore(
   combineReducers({
-    auth: AuthReducer
+    auth: AuthReducer,
+    entreprise: EntrepriseReducer
   }),
   composeWithDevTools(
     applyMiddleware(thunk)
