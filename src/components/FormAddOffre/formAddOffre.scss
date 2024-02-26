@@ -1,26 +1,21 @@
-label{
+.label-input{
   color: var(--secondary-color);
   width: 100%;
+  margin-bottom: 5px;
+  text-align: left;
+  justify-content: flex-start;
 }
 form {
   display: flex;
   flex-direction: row;
   align-items: center;
-}
-select {
-  border: 1px solid var(--fourth-color);
-  border-radius: 5px;
-  height: 34px;
-}
-.select-add {
-  display: flex;
-  align-items: flex-end;
-  padding-top: 1.7rem;
+  width: 100%;
 }
 
+
 .button-add {
-  padding-top: 1.7rem;
-  margin-left: .2rem
+  width: 20%;
+  padding-top: 2.2rem;
 }
 
 button {
@@ -29,3 +24,8 @@ button {
   padding: .5rem 0 ;
 }
 
+.input-add{
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+}
