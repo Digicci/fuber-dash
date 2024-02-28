@@ -6,7 +6,6 @@ function PrivateRoute({children}){
   const auth = useAuthAdmin()
   const location = useLocation()
 
-
   const navigate = () =>{
     return <Navigate to='/login' state={{from:location}} replace />
   }

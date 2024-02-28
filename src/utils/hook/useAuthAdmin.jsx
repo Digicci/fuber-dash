@@ -44,9 +44,10 @@ function useProvideAuthAdmin(){
     }
     if(localStorage.getItem("admin_token")){
       axios.get(`${basePath}/get`).then((res) =>{
+        console.log(res)
         if(res.status === 401) {
           dispatch(setAuth(null));
-          localStorage.removeItem('admin_token');z
+          localStorage.removeItem('admin_token');
         }else if(res.data) {
           dispatch(setAuth(res.data));
         }else {
