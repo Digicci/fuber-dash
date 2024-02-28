@@ -9,8 +9,10 @@ function Login(){
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (auth.isConnected()) {
+        if (auth.auth) {
             navigate('/')
+        } else {
+            auth.isConnected()
         }
     }, [auth.auth]);
 

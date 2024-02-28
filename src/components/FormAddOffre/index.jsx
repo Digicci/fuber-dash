@@ -34,9 +34,9 @@ function FormAddOffre(){
     const toatsId = toast.loading('En cours de traitement',{autoClose:false})
     const data = validateForm()
     if (data) {
-      useOffre.createOffer(data)
+      useOffre.register(data)
       .then((response) => {
-        if(response.data){
+        if(response.data && response.status === 201){
           setOffre(initialState)
           setError('')
           toast.update(toatsId,{
@@ -47,11 +47,20 @@ function FormAddOffre(){
             icon: '👌',
             isLoading: false,
           })
+        } else {
+          toast.update(toatsId,{
+            render: "Une erreur s'est produite.",
+            type: 'error',
+            autoClose: 5000,
+            isLoading: false,
+            icon: '🤔',
+          })
+
         }
       })
       .catch((error) => {
         toast.update(toatsId,{
-          render: error.response.data,
+          render: error,
           type: 'error',
           autoClose: 5000,
           isLoading: false,
