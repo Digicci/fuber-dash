@@ -11,7 +11,7 @@ export const EntrepriseSlice = createSlice({
     setEntreprise: (state,action) => {
       return{
         ...state,
-        enterprise: action.payload,
+        entreprise: action.payload,
       }
     }
   }
