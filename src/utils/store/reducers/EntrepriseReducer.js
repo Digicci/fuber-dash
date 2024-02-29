@@ -4,7 +4,7 @@ const initialState = {
   entreprise: [],
 }
 
-const EntrepriseReducer = (state = initialState, action) => {
+ export const EntrepriseReducer = (state = initialState, action) => {
   switch (action.type){
     case SET_ENTREPRISE:
       return{
@@ -16,4 +16,3 @@ const EntrepriseReducer = (state = initialState, action) => {
   }
 }
 
-export default EntrepriseReducer;

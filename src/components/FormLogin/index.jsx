@@ -3,7 +3,7 @@ import {useState, useEffect} from "react";
 import {useDispatch} from "react-redux";
 import { useAuthAdmin } from "../../utils/hook/useAuthAdmin.jsx"
 import {useNavigate} from "react-router-dom";
-import {setAuth,} from "../../utils/store/actions/AuthActions.js";
+import {setAuth,} from "../../utils/store/slices/AuthSlice.js";
 import {toast} from "react-toastify";
 import {useCsrf} from "../../utils/hook/useCsrf.jsx";
 

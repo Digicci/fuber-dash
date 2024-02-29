@@ -2,7 +2,7 @@ import {createContext, useContext, useState} from "react";
 import {useAxios} from "./useAxios.jsx";
 import  {useNavigate} from "react-router-dom";
 import {useSelector, useDispatch} from "react-redux";
-import {setAuth} from "../store/actions/AuthActions.js";
+import {setAuth} from "../store/slices/AuthSlice.js";
 import {getAuth} from "../store/selectors/AuthSelectors.js";
 
 const AuthContext = createContext();

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
 import {BrowserRouter} from "react-router-dom";
-import store from "./utils/store/index.js";
+import {store} from "./utils/store/index.js";
 import {Provider} from "react-redux";
 import {ProvideCsrf} from "./utils/hook/useCsrf.jsx";
 import {ProvideAxios} from "./utils/hook/useAxios.jsx";

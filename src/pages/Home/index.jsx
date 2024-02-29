@@ -3,7 +3,7 @@ import './home.scss'
 import OffreList from "../../components/OffreList/index.jsx";
 import {useEffect} from "react";
 import {useAuthAdmin} from "../../utils/hook/useAuthAdmin.jsx"
-import { setEntreprise } from "../../utils/store/actions/AuthActions.js";
+import { setEntreprise } from "../../utils/store/slices/EntrepriseSlice.js";
 import {useDispatch} from "react-redux";
 
 function Home(){
