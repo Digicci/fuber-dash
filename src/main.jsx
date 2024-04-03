@@ -9,6 +9,7 @@ import {ProvideCsrf} from "./utils/hook/useCsrf.jsx";
 import {ProvideAxios} from "./utils/hook/useAxios.jsx";
 import {ProvideAuthAdmin} from "./utils/hook/useAuthAdmin.jsx";
 import {ProvideOffer} from "./utils/hook/useOffer.jsx";
+import ProvidePopupContext from "./utils/hook/usePopup.jsx";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -20,8 +21,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Provider store={store}>
             <ProvideAuthAdmin>
               <ProvideOffer>
-                <App />
-                <ToastContainer autoClose={3000}/>
+                <ProvidePopupContext>
+                  <App />
+                  <ToastContainer autoClose={3000}/>
+                </ProvidePopupContext>
               </ProvideOffer>
             </ProvideAuthAdmin>
           </Provider>

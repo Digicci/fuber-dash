@@ -65,11 +65,36 @@
     backdrop-filter: blur(5px) brightness(75%);
     width: 100%;
     z-index: -1;
-    .visible {
+    &.visible {
+      flex-direction: column;
       transform: translateY(0);
       height: calc(100vh - 100px);
       opacity: 1;
       z-index: 5;
     }
+  }
+}
+
+.logout{
+  color: var(--primary-color);
+  -webkit-transition: .3s;
+  -moz-transition: .3s;
+  transition: .3s;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  width: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  &:hover {
+    background-color: var(--red-color);
+    color: var(--primary-color);
+
+  }
+  &.disappear {
+    display: none;
   }
 }

@@ -10,11 +10,9 @@ function DriversList(){
       <div className={'list'}>
         <h4>
           Chauffeurs
-          <i className={"ph-bold ph-dots-three"}></i>
         </h4>
         <div className={'driver-list'}>
           {entreprise.length > 0 ? entreprise.map((item, index) =>{
-            console.log(entreprise)
             return(
               <DriversItem key={index} item={item}/>
             )

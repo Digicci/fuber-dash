@@ -1,34 +1,38 @@
 import './offreItem.scss'
-function OffreItem(){
+function OffreItem({item}){
+  const [dateBeginning, hourBeginning] = item.date_debut.split('T')
+  const displayHourBeginning = hourBeginning.split('.')[0]
+
+  const [dateEnd, hourEnd] = item.date_fin.split('T')
+  const displayHourEnd = hourEnd.split('.')[0]
+
   return(
     <>
       <div className={'offre-item'}>
         <div className={'offres'}>
-          <div className={'details'}>
-            <p className={'text-offre'}>Offer Description</p>
+          <div className={'details-offre'}>
+            <p className={'text-offre'}>{item.nom_offre}</p>
           </div>
           <div className={'details-offre'}>
-            <p className={'text-offre'}>Offer Description</p>
+            <p className={'text-offre'}>{dateBeginning} / {displayHourBeginning}</p>
           </div>
           <div className={'details-offre'}>
-            <p className={'text-offre'}>Offer Description</p>
+            <p className={'text-offre'}>{dateEnd} / {displayHourEnd}</p>
           </div>
           <div className={'details-offre'}>
-            <p className={'text-offre'}>Offer Description</p>
+            <p className={'text-offre'}>{item.code_offre}</p>
           </div>
           <div className={'details-offre'}>
-            <p className={'text-offre'}>Offer Description</p>
+            <p className={'text-offre'}>{item.reccurence}</p>
           </div>
           <div className={'details-offre'}>
-            <p className={'text-offre'}>Offer Description</p>
+            <p className={'text-offre'}>{item.reduction} €</p>
           </div>
           <div className={'details-offre'}>
-            <p className={'text-offre'}>Offer Description</p>
+            <p className={'text-offre'}>{item.cummulable}</p>
           </div>
           <div className={'details-offre'}>
-            <button className={'plus-details-offre'}>
-              <i className="ph-bold ph-dots-three-outline"></i>
-            </button>
+            <p className={'text-offre'}>{item.pourcentage} %</p>
           </div>
         </div>
       </div>

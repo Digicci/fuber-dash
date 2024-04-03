@@ -1,7 +1,21 @@
 import profile from "../../assets/drivercard.webp"
 import './driversItem.scss'
+import {usePopupContext} from "../../utils/hook/usePopup.jsx";
+import DriverDetailPopUp from "../DriverDetailPopup/index.jsx";
 
 function DriversItem({item}){
+
+  const {
+    definePopup,
+    resetPopup,
+    openPopup,
+  } = usePopupContext()
+
+  const showDetail = () => {
+    resetPopup()
+    definePopup(<DriverDetailPopUp driver={item}/>)
+    openPopup()
+  }
   return (
     <>
       <div className={'container-item'}>
@@ -23,8 +37,8 @@ function DriversItem({item}){
             <p className={'text'}>{item.mail}</p>
           </div>
           <div className={'details'}>
-            <button className={'plus-details'}>
-              <i className="ph-bold ph-dots-three-outline"></i>
+            <button onClick={showDetail} className={'plus-details'}>
+                <i className="ph-bold ph-dots-three-outline"></i>
             </button>
           </div>
         </div>

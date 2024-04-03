@@ -64,8 +64,51 @@ function useProvideAuthAdmin(){
     }
   }
 
-  const getEntreprises = async () => {
-    return await axios.get(`${basePath}/entreprise`,{withCredentials: true});
+  const getEntreprises = () => {
+    return axios.get(`${basePath}/entreprise`,{withCredentials: true});
+  }
+
+
+  const getTeamEmployer = (id) => {
+    return axios.get(`${basePath}/team/${id}`, {withCredentials: true})
+  }
+
+
+  const confirmedDriver = (id) => {
+    if(id === null){
+      return new Promise((resolve) =>{
+        resolve(null)
+      })
+    }
+    const data = {
+      id,
+      statut: 'confirmed'
+    }
+    return axios.post(`${basePath}/updateDriverPending`, data)
+  }
+  const refusedDriver = (id) => {
+    if(id === null){
+      return new Promise((resolve) =>{
+        resolve(null)
+      })
+    }
+    const data = {
+      id,
+      statut: 'refused'
+    }
+    return axios.post(`${basePath}/updateDriverPending`, data)
+  }
+  const bannedDriver = (id) => {
+    if(id === null){
+      return new Promise((resolve) =>{
+        resolve(null)
+      })
+    }
+    const data = {
+      id,
+      statut: 'banned'
+    }
+    return axios.post(`${basePath}/updateDriverPending`, data)
   }
 
   const signout = () => {
@@ -88,6 +131,10 @@ function useProvideAuthAdmin(){
     isConnected,
     getAdmin,
     getEntreprises,
+    getTeamEmployer,
+    confirmedDriver,
+    refusedDriver,
+    bannedDriver,
     auth
   }
 }
