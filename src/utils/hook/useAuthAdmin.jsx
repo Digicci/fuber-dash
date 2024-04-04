@@ -4,11 +4,12 @@ import  {useNavigate} from "react-router-dom";
 import {useSelector, useDispatch} from "react-redux";
 import {setAuth} from "../store/slices/AuthSlice.js";
 import {getAuth} from "../store/selectors/AuthSelectors.js";
+import localStorageConstant from "../../constants/localStorage.constant.js";
 
 const AuthContext = createContext();
 const basePath = "admin";
-const LOCAL_STORAGE_ADMIN_JWT_TOKEN_KEY = "admin_token";
-const LOCAL_STORAGE_ADMIN_JWT_REFRESH_TOKEN_KEY = "admin_jwt_refresh"
+const LOCAL_STORAGE_ADMIN_JWT_TOKEN_KEY = localStorageConstant.ADMIN_JWT_TOKEN_KEY;
+const LOCAL_STORAGE_ADMIN_JWT_REFRESH_TOKEN_KEY = localStorageConstant.ADMIN_JWT_REFRESH_TOKEN_KEY
 
 const STATUT = {
   CONFIRMED: "confirmed",
@@ -38,19 +39,23 @@ function useProvideAuthAdmin(){
       (response) => response,
       async function (error) {
         const originalRequest = error.config
-        if (error.config.url !== '/refreshToken' && error.response.status === 401 && !originalRequest._retry) {
+        if (error.config.url !== '/admin/refreshToken' && error.response.status === 401 && !originalRequest._retry) {
           originalRequest._retry = true;
           const refreshToken = localStorage.getItem(LOCAL_STORAGE_ADMIN_JWT_REFRESH_TOKEN_KEY)
           if(refreshToken && refreshToken !== '') {
             axios.api.defaults.headers.common['Authorization'] = `Bearer ${refreshToken}`
             console.log('refreshToken')
-            await axios.api.post('/security/refreshToken').then((response) => {
+            await axios.api.post('/admin/refreshToken').then((response) => {
               originalRequest.headers['Authorization'] = `Bearer ${response.data.token}`
               axios.api.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`
+              localStorage.setItem(LOCAL_STORAGE_ADMIN_JWT_TOKEN_KEY, response.data.token)
             })
             return axios.api(originalRequest)
           }
         }
+        dispatch(setAdmin(null))
+        localStorage.removeItem(LOCAL_STORAGE_ADMIN_JWT_TOKEN_KEY)
+        localStorage.removeItem(LOCAL_STORAGE_ADMIN_JWT_REFRESH_TOKEN_KEY)
         return Promise.reject(error);
       }
   )

@@ -6,6 +6,7 @@ import {useNavigate} from "react-router-dom";
 import {setAuth,} from "../../utils/store/slices/AuthSlice.js";
 import {toast} from "react-toastify";
 import {useCsrf} from "../../utils/hook/useCsrf.jsx";
+import localStorageConstant from "../../constants/localStorage.constant.js";
 
 function FormLogin(){
 
@@ -62,7 +63,8 @@ function FormLogin(){
             isLoading: false,
             closeOnClick: true
           })
-          localStorage.setItem('admin_token',res.data.token)
+          localStorage.setItem(localStorageConstant.ADMIN_JWT_TOKEN_KEY, res.data.token)
+          localStorage.setItem(localStorageConstant.ADMIN_JWT_REFRESH_TOKEN_KEY, res.data.refreshToken)
           authAdmin.setAdmin(res.data)
           dispatch(setAuth(res.data))
           setTimeout(() => {
