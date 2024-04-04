@@ -1,4 +1,4 @@
-.list {
+.offre {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9,7 +9,7 @@
   }
 }
 
-h4 {
+h4{
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -24,7 +24,7 @@ h4 {
   }
 }
 
-.driver-list {
+.offre-list {
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -34,7 +34,29 @@ h4 {
     padding: 1rem 0;
     width: 100vw;
   }
-  p{
-    color: var(--secondary-color);
+}
+
+.entete-offre{
+  display: flex;
+  padding: .8rem 1rem;
+  overflow-wrap: break-word;
+  width: 100%;
+  border-bottom: 1px solid #66b280;
+}
+
+.div-title-offre{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+  margin: 0.5rem;
+  @media (max-width: 768px) {
+    width: 15%;
   }
+}
+
+.title-offre{
+  font-size: .92rem;
+  font-weight: 700;
+  color: rgb(102, 178, 128);
 }

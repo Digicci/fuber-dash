@@ -1,0 +1,33 @@
+.label-input{
+  color: rgb(102, 178, 128);
+  width: 100%;
+  margin-bottom: 5px;
+  text-align: left;
+  justify-content: flex-start;
+  font-weight: 500;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+
+.button-add {
+  width: 20%;
+  padding-top: 2.2rem;
+}
+
+button {
+  border: none;
+  border-radius: 5px;
+  padding: .5rem 0 !important;
+  width: 95%;
+}
+
+.input-add{
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+}

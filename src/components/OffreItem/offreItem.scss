@@ -1,0 +1,38 @@
+.offre-item{
+  display: flex;
+  width: 100%;
+}
+
+.offres{
+  display: flex;
+  padding: .8rem 1rem;
+  overflow-wrap: break-word;
+  width: 100%;
+}
+
+.details-offre{
+  display: flex;
+  justify-content: center;
+  width: 20%;
+  margin: 0.5rem 1rem;
+  &:first-child{
+    justify-content: unset;
+  }
+  i{
+    font-size: 1.5rem;
+  }
+  @media (max-width: 768px) {
+    width: 15%;
+    i{
+      font-size: 2rem;
+    }
+  }
+}
+
+.text-offre{
+  text-align: start;
+  font-size: .92rem;
+  font-weight: 600;
+  color: var(--secondary-color);
+}
+
