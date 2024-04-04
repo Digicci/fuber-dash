@@ -23,16 +23,16 @@ function OffreItem({item}){
             <p className={'text-offre'}>{item.code_offre}</p>
           </div>
           <div className={'details-offre'}>
-            <p className={'text-offre'}>{item.reccurence}</p>
+            <p className={'text-offre'}>{item.reccurence} fois</p>
           </div>
           <div className={'details-offre'}>
             <p className={'text-offre'}>{item.reduction} €</p>
           </div>
           <div className={'details-offre'}>
-            <p className={'text-offre'}>{item.cummulable}</p>
+            <p className={'text-offre'}>{item.cummulable  ? 'Oui' : 'Non'}</p>
           </div>
           <div className={'details-offre'}>
-            <p className={'text-offre'}>{item.pourcentage} %</p>
+            <p className={'text-offre'}>{item.pourcentage > 0 ? `${item.pourcentage} %` : 'Aucun'}</p>
           </div>
         </div>
       </div>

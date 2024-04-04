@@ -2,21 +2,14 @@ import {useEffect, useState} from "react";
 import {NavLink} from "react-router-dom";
 import './navBar.scss';
 import {useAuthAdmin} from "../../utils/hook/useAuthAdmin.jsx";
-import {useSelector} from "react-redux";
-import {getAuth} from "../../utils/store/selectors/AuthSelectors.js";
 
 
 function NavBar(){
-    const {signout, isConnected} = useAuthAdmin()
-    const auth = useSelector(getAuth)
+    const {signout} = useAuthAdmin()
     const [isOpen,setIsOpen] = useState(false)
-    const [connected, setConnected ] = useState(false)
     const toggleMenu = () => {
         setIsOpen(!isOpen)
     }
-    useEffect(() => {
-        setConnected(isConnected())
-    },[auth.auth])
 
 
     return(
@@ -38,9 +31,7 @@ function NavBar(){
                     <NavLink className={"navLink"} to={'/abonnement'}>
                         Abonnement
                     </NavLink>
-                    {
-                        connected && <button className={`logout `} onClick={signout}>Déconnexion</button>
-                    }
+                    <button className={`logout `} onClick={signout}>Déconnexion</button>
                 </div>
             </div>
         </>

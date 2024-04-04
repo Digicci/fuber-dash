@@ -11,5 +11,4 @@ import OfferSlice from "./slices/OfferSlice.js";
     team: TeamEmployerReducer,
     offer: OfferSlice,
   },
-
 })

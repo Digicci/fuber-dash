@@ -7,6 +7,12 @@ import {getAuth} from "../store/selectors/AuthSelectors.js";
 
 const AuthContext = createContext();
 const basePath = "admin";
+const ADMIN_TOKEN_KEY = "admin_token";
+const STATUT = {
+  CONFIRMED: "confirmed",
+  REFUSED: "refused",
+  BANNED: "banned"
+}
 
 
 // eslint-disable-next-line react/prop-types
@@ -42,22 +48,22 @@ function useProvideAuthAdmin(){
     if(auth.user !== null){
       return;
     }
-    if(localStorage.getItem("admin_token")){
+    if(localStorage.getItem(ADMIN_TOKEN_KEY)){
       axios.get(`${basePath}/get`).then((res) =>{
         console.log(res)
         if(res.status === 401) {
           dispatch(setAuth(null));
-          localStorage.removeItem('admin_token');
+          localStorage.removeItem(ADMIN_TOKEN_KEY);
         }else if(res.data) {
           dispatch(setAuth(res.data));
         }else {
           dispatch(setAuth(null));
-          localStorage.removeItem('admin_token');
+          localStorage.removeItem(ADMIN_TOKEN_KEY);
         }
       }).catch((err) => {
         console.log(err)
         dispatch(setAuth(null));
-        localStorage.removeItem('admin_token');
+        localStorage.removeItem(ADMIN_TOKEN_KEY);
       })
     }else {
       dispatch(setAuth(null));
@@ -73,6 +79,18 @@ function useProvideAuthAdmin(){
     return axios.get(`${basePath}/team/${id}`, {withCredentials: true})
   }
 
+  // const updateDriver = (id, statut) => {
+  //   if(id === null){
+  //     return new Promise((resolve) =>{
+  //       resolve(null)
+  //     })
+  //   }
+  //   const data = {
+  //     id,
+  //     statut
+  //   }
+  //   return axios.post(`${basePath}/updateDriverPending`, data)
+  // }
 
   const confirmedDriver = (id) => {
     if(id === null){
@@ -82,7 +100,7 @@ function useProvideAuthAdmin(){
     }
     const data = {
       id,
-      statut: 'confirmed'
+      statut: STATUT.CONFIRMED
     }
     return axios.post(`${basePath}/updateDriverPending`, data)
   }
@@ -94,7 +112,7 @@ function useProvideAuthAdmin(){
     }
     const data = {
       id,
-      statut: 'refused'
+      statut: STATUT.REFUSED
     }
     return axios.post(`${basePath}/updateDriverPending`, data)
   }
@@ -106,13 +124,13 @@ function useProvideAuthAdmin(){
     }
     const data = {
       id,
-      statut: 'banned'
+      statut: STATUT.BANNED
     }
     return axios.post(`${basePath}/updateDriverPending`, data)
   }
 
   const signout = () => {
-    localStorage.removeItem('admin_token');
+    localStorage.removeItem(ADMIN_TOKEN_KEY);
     localStorage.clear();
     dispatch(setAuth(null));
     setAdmin(null);
@@ -134,7 +152,6 @@ function useProvideAuthAdmin(){
     getTeamEmployer,
     confirmedDriver,
     refusedDriver,
-    bannedDriver,
-    auth
+    bannedDriver
   }
 }

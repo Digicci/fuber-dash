@@ -4,8 +4,9 @@ import {useOffer} from "../../utils/hook/useOffer.jsx";
 import {toast} from "react-toastify";
 
 function FormAddOffre(){
+
   const useOffre = useOffer()
-  const [error, setError] = useState('')
+
   const initialState = {
     nom_offre:'',
     date_debut:'',
@@ -13,40 +14,29 @@ function FormAddOffre(){
     code_offre:'',
     recurrence:1,
     reduction:0,
-    cummulable:0,
-    pourcentage:''
+    cummulable:false,
+    pourcentage:0
   }
   const [offre, setOffre] = useState(initialState)
   const toastTimer = 2000
 
   function validateForm(){
-    for(const[field] of Object.entries(offre)){
-      if(field === ''){
-        setError('Veuillez remplir tous les champs');
+    for(const[key, value] of Object.entries(offre)){
+      if((typeof  value === 'string' && value === '') || (typeof value === 'number' && key !== 'cummulable' && value === 0)){
+        return false;
       }
     }
-    setError('')
-    return{
-      nom_offre: offre.nom_offre,
-      date_debut: offre.date_debut,
-      date_fin: offre.date_fin,
-      code_offre: offre.code_offre,
-      reccurence: offre.reccurence,
-      reduction: offre.reduction,
-      cummulable: offre.cummulable,
-      pourcentage: offre.pourcentage
-    }
+    return true;
   }
   const handleSubmit = (e) => {
     e.preventDefault();
     const toatsId = toast.loading('En cours de traitement',{autoClose:false})
-    const data = validateForm()
-    if (data) {
-      useOffre.register(data)
+
+    if (validateForm()) {
+      useOffre.register({...offre})
       .then((response) => {
         if(response.data && response.status === 201){
           setOffre(initialState)
-          setError('')
           toast.update(toatsId,{
             render: 'Ajout réussi',
             type: 'success',
@@ -63,9 +53,8 @@ function FormAddOffre(){
             isLoading: false,
             icon: '🤔',
           })
-
-        }
-      })
+        } // fin else
+      }) //fin then
       .catch((error) => {
         toast.update(toatsId,{
           render: error,
@@ -90,9 +79,10 @@ function FormAddOffre(){
     }
   }
 
-  const handleChange = (e,field) => {
+  const handleChange = (e) => {
+    const {value, name} = e.target
     const state = {...offre}
-    state[field] = e.target.value;
+    state[name] = value;
     setOffre(state);
 
   }
@@ -107,9 +97,7 @@ function FormAddOffre(){
             type={'text'}
             name={'nom_offre'}
             value={offre.nom_offre}
-            onChange={(e) => {
-              handleChange(e, 'nom_offre')
-            }}
+            onChange={handleChange}
             required
           />
         </div>
@@ -119,11 +107,9 @@ function FormAddOffre(){
           </label>
           <input
             type={'datetime-local'}
-            name={'date_de_debut'}
+            name={'date_debut'}
             value={offre.date_debut}
-            onChange={(e) => {
-              handleChange(e, 'date_debut')
-            }}
+            onChange={handleChange}
             required
           />
         </div>
@@ -133,11 +119,9 @@ function FormAddOffre(){
           </label>
           <input
             type={'datetime-local'}
-            name={'date_de_fin'}
+            name={'date_fin'}
             value={offre.date_fin}
-            onChange={(e) => {
-              handleChange(e, 'date_fin')
-            }}
+            onChange={handleChange}
             required
           />
         </div>
@@ -149,9 +133,7 @@ function FormAddOffre(){
             type={'text'}
             name={'code_offre'}
             value={offre.code_offre}
-            onChange={(e) => {
-              handleChange(e, 'code_offre')
-            }}
+            onChange={handleChange}
             required
           />
         </div>
@@ -161,53 +143,42 @@ function FormAddOffre(){
           </label>
           <input
             type={'text'}
-            name={'reccurence'}
-            value={offre.reccurence}
-            onChange={(e) => {
-              handleChange(e, 'reccurence')
-            }}
+            name={'recurrence'}
+            value={offre.recurrence}
+            onChange={handleChange}
             required
           />
         </div>
         <div className={'input-add'}>
           <label className={'label-input'}>
-            Réduction :
+            Montant de la réduction :
           </label>
           <input
             type={'text'}
             name={'reduction'}
             value={offre.reduction}
-            onChange={(e) => {
-              handleChange(e, 'reduction')
-            }}
+            onChange={handleChange}
             required
           />
         </div>
         <div className={'input-add'}>
           <label className={'label-input'}>
-            Cummulable :
+            Offre cummulable ?
           </label>
-          <input
-            type={'text'}
-            name={'cummulable'}
-            value={offre.cummulable}
-            onChange={(e) => {
-              handleChange(e, 'cummulable')
-            }}
-            required
-          />
+          <select value={offre.cummulable} name={'cummulable'} required onChange={handleChange}>
+            <option value={"true"}>Oui</option>
+            <option value={"false"}>Non</option>
+          </select>
         </div>
         <div className={'input-add'}>
           <label className={'label-input'}>
-            Pourcentage de l'offre :
+            Pourcentage de réduction :
           </label>
           <input
             type={'text'}
             name={'pourcentage'}
             value={offre.pourcentage}
-            onChange={(e) => {
-              handleChange(e, 'pourcentage')
-            }}
+            onChange={handleChange}
             required
           />
         </div>

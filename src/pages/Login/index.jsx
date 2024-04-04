@@ -1,20 +1,19 @@
 import FormLogin from "../../components/FormLogin/index.jsx";
 import {useEffect} from "react";
-import {useAuthAdmin} from "../../utils/hook/useAuthAdmin.jsx";
 import {useNavigate} from "react-router-dom";
+import {useSelector} from "react-redux";
+import {getAuth} from "../../utils/store/selectors/AuthSelectors.js";
 
 function Login(){
 
-    const auth = useAuthAdmin()
+    const {auth} = useSelector(getAuth)
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (auth.auth) {
+        if (auth) {
             navigate('/')
-        } else {
-            auth.isConnected()
         }
-    }, [auth.auth]);
+    }, [auth]);
 
   return (
     <div className={'container-login'}>

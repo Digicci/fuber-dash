@@ -21,9 +21,9 @@ function FormLogin(){
   const csrf = useCsrf()
 
   useEffect(() => {
-    if(authAdmin.isConnected()){
-      navigate('/',{replace:true})
-    }
+    // if(authAdmin.isConnected()){
+    //   navigate('/',{replace:true})
+    // }
     csrf.getCsrfToken()
   }, [])
   const handleChange = (e,field) => {
@@ -107,6 +107,7 @@ function FormLogin(){
             type={'email'}
             placeholder={'Email'}
             value={admin.mail}
+            autoComplete={'email'}
             onChange={(e) => {handleChange(e,'mail')}}
             required
           />
@@ -119,6 +120,7 @@ function FormLogin(){
           type={'password'}
           placeholder={'Mot de passe'}
           value={admin.mdp}
+          autoComplete={'current-password'}
           onChange={(e) => {handleChange(e,'mdp')}}
           required
         />

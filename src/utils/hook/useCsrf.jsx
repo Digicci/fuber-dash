@@ -1,4 +1,4 @@
-import {useState, useContext, createContext, useEffect} from "react";
+import {useState, useContext, createContext} from "react";
 import axios from "axios";
 
 const apiPath = "http://localhost:8000/api";
@@ -17,7 +17,7 @@ function useProvideCsrf(){
   const [token,setToken] = useState(null);
   const getCsrfToken = () => {
     axios.get(`${apiPath}/security/csrf/form`, {withCredentials: true}).then(res => {
-      setToken(res.data.csrftoken);
+      setToken(res.data.csrfToken);
       return true
     })
   }

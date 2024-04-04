@@ -23,7 +23,7 @@ function useProvideAxios() {
   const setHeader = () => {
     const JWT = localStorage.getItem('admin_token')
     axios.defaults.headers.common['Authorization'] = JWT ? `Bearer ${JWT}` : null ;
-    axios.defaults.headers.post['X-CRSF-TOKEN'] = csrf.token;
+    axios.defaults.headers.post['X-CSRF-TOKEN'] = csrf.token;
     axios.defaults.withCredentials = true;
   }
 

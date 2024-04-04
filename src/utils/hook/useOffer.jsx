@@ -1,6 +1,5 @@
 import {createContext,useContext} from "react";
 import {useAxios} from "./useAxios.jsx";
-import axios from "axios";
 
 const AuthContext = createContext();
 const basePath = 'offre';
@@ -21,8 +20,8 @@ function useProviderOffer() {
     return axios.post(`${basePath}/createOffer`, data)
   }
 
-  const getOffer = async () => {
-      return await axios.get(`${basePath}/getOffers`, {withCredentials:true})
+  const getOffer = () => {
+      return axios.get(`${basePath}/getOffers`, {withCredentials:true})
   }
 
   return{

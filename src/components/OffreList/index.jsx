@@ -28,13 +28,13 @@ function OffreList(){
             <p className={'title-offre'}>Récurrence</p>
           </div>
           <div className={'div-title-offre'}>
-            <p className={'title-offre'}>Réduction</p>
+            <p className={'title-offre'}>Montant de la réduction</p>
           </div>
           <div className={'div-title-offre'}>
             <p className={'title-offre'}>Cummulable</p>
           </div>
           <div className={'div-title-offre'}>
-            <p className={'title-offre'}>Pourcentage</p>
+            <p className={'title-offre'}>Pourcentage de la réduction</p>
           </div>
         </div>
         <div className={'offre-list'}>

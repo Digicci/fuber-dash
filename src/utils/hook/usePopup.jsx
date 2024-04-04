@@ -6,7 +6,7 @@ export const usePopupContext = () => {
   return useContext(PopupContext)
 }
 
-const consumePopupContext = () => {
+const ConsumePopupContext = () => {
 
   const [isOpen, setIsOpen] = useState(false)
   const [popUp, setPopUp] = useState({})
@@ -42,7 +42,7 @@ const consumePopupContext = () => {
 
 const ProvidePopupContext = ({children}) => {
 
-  const context = consumePopupContext()
+  const context = ConsumePopupContext()
 
   return <PopupContext.Provider value={context}>
     {children}
