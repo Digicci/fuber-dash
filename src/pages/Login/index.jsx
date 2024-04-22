@@ -8,7 +8,6 @@ function Login(){
 
     const {auth} = useSelector(getAuth)
     const navigate = useNavigate()
-
     useEffect(() => {
         if (auth) {
             navigate('/')
