@@ -2,11 +2,13 @@ import './adhesionPopup.scss';
 import {useAuthAdmin} from "../../utils/hook/useAuthAdmin.jsx";
 import {usePopupContext} from "../../utils/hook/usePopup.jsx";
 import {toast} from "react-toastify";
+import {useDispatch} from "react-redux";
+import {setEntreprise} from "../../utils/store/slices/EntrepriseSlice.js";
 
 function AdhesionPopup({driver}) {
 
-  const { confirmedDriver,refusedDriver} = useAuthAdmin()
-  //const dispatch = useDispatch()
+  const { confirmedDriver,refusedDriver, getEntreprises} = useAuthAdmin()
+  const dispatch = useDispatch()
   const {
     resetPopup,
   } = usePopupContext()
@@ -33,12 +35,23 @@ function AdhesionPopup({driver}) {
         })
         return
       }
-      resetPopup()
-      toast('Modification faite avec succès',{
-        position: "top-right",
-        autoClose: 2000,
-        type: 'success',
-        icon: '👍',
+      getEntreprises().then(({data}) => {
+        dispatch(setEntreprise(data))
+        toast('Modification faite avec succès',{
+          position: "top-right",
+          autoClose: 2000,
+          type: 'success',
+          icon: '👍',
+        })
+        resetPopup()
+      }).catch(() => {
+        toast('Une erreur s\'est produite',{
+          position: "top-right",
+          autoClose: 2000,
+          type: 'error',
+          icon: '👍',
+        })
+        resetPopup()
       })
 
     })

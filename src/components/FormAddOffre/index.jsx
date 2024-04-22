@@ -1,11 +1,12 @@
 import './formAddOffre.scss'
-import {useState} from "react";
+import {useRef, useState} from "react";
 import {useOffer} from "../../utils/hook/useOffer.jsx";
 import {toast} from "react-toastify";
 
 function FormAddOffre(){
 
   const useOffre = useOffer()
+  const error = useRef('')
 
   const initialState = {
     nom_offre:'',
@@ -21,11 +22,29 @@ function FormAddOffre(){
   const toastTimer = 2000
 
   function validateForm(){
-    for(const[key, value] of Object.entries(offre)){
-      if((typeof  value === 'string' && value === '') || (typeof value === 'number' && key !== 'cummulable' && value === 0)){
+    for(const[_, value] of Object.entries(offre)){
+      if((typeof  value === 'string' && value === '')){
+        error.current = 'Veuillez remplir tous les champs'
         return false;
       }
     }
+
+    if(parseInt(offre.recurrence) < 1) {
+      error.current = 'La valeur minimal pour le nombre d\'utilisation est de 1 fois'
+      return false
+    }
+
+    if(parseFloat(offre.reduction) === 0 && parseFloat(offre.pourcentage) === 0) {
+      error.current = 'Merci de saisir un montant ou un pourcentage de réduction.'
+      return false
+    }
+
+    if(parseFloat(offre.reduction) !== 0 && parseFloat(offre.pourcentage) !== 0) {
+      error.current = 'Merci de ne saisir que un montant ou un pourcentage pour l\'offre'
+      return false
+    }
+
+    error.current = '';
     return true;
   }
   const handleSubmit = (e) => {
@@ -37,6 +56,7 @@ function FormAddOffre(){
       .then((response) => {
         if(response.data && response.status === 201){
           setOffre(initialState)
+          console.log(response)
           toast.update(toatsId,{
             render: 'Ajout réussi',
             type: 'success',
@@ -46,6 +66,7 @@ function FormAddOffre(){
             isLoading: false,
           })
         } else {
+          console.log(response)
           toast.update(toatsId,{
             render: "Une erreur s'est produite.",
             type: 'error',
@@ -56,8 +77,9 @@ function FormAddOffre(){
         } // fin else
       }) //fin then
       .catch((error) => {
+        console.log(error)
         toast.update(toatsId,{
-          render: error,
+          render: error.message,
           type: 'error',
           autoClose: 5000,
           isLoading: false,
@@ -67,7 +89,7 @@ function FormAddOffre(){
       });
     }else{
       toast.update(toatsId,{
-        render: 'Veuillez remplir tous les champs',
+        render: error.current,
         type: 'error',
         autoClose: 5000,
         isLoading: false,
@@ -80,7 +102,7 @@ function FormAddOffre(){
   }
 
   const handleChange = (e) => {
-    const {value, name} = e.target
+    let {value, name} = e.target
     const state = {...offre}
     state[name] = value;
     setOffre(state);
@@ -91,7 +113,7 @@ function FormAddOffre(){
       <form method={'POST'}>
         <div className={'input-add'}>
           <label className={'label-input'}>
-            Nom de l'offre :
+            Nom de l&#39;offre :
           </label>
           <input
             type={'text'}
@@ -139,7 +161,7 @@ function FormAddOffre(){
         </div>
         <div className={'input-add'}>
           <label className={'label-input'}>
-            Récurrence :
+            Nombre d{"'"}utilisation :
           </label>
           <input
             type={'text'}
@@ -147,6 +169,7 @@ function FormAddOffre(){
             value={offre.recurrence}
             onChange={handleChange}
             required
+            placeholder={'Minimum : 1'}
           />
         </div>
         <div className={'input-add'}>
@@ -159,6 +182,7 @@ function FormAddOffre(){
             value={offre.reduction}
             onChange={handleChange}
             required
+            placeholder={'Minimum : 0'}
           />
         </div>
         <div className={'input-add'}>
@@ -180,6 +204,7 @@ function FormAddOffre(){
             value={offre.pourcentage}
             onChange={handleChange}
             required
+            placeholder={'Minimum : 0'}
           />
         </div>
         <div className={'button-add'}>

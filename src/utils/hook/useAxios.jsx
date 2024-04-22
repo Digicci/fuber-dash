@@ -3,8 +3,11 @@ import {useCsrf} from "./useCsrf.jsx";
 import axios from "axios";
 
 const AxiosContext = createContext();
-const apiPath = 'http://localhost:8000/api';
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE_PATH
+})
 
+// eslint-disable-next-line react/prop-types
 export function ProvideAxios({ children }){
   const axios = useProvideAxios();
   return (
@@ -22,35 +25,36 @@ function useProvideAxios() {
   const csrf = useCsrf();
   const setHeader = () => {
     const JWT = localStorage.getItem('admin_token')
-    axios.defaults.headers.common['Authorization'] = JWT ? `Bearer ${JWT}` : null ;
-    axios.defaults.headers.post['X-CSRF-TOKEN'] = csrf.token;
-    axios.defaults.withCredentials = true;
+    api.defaults.headers.common['Authorization'] = JWT ? `Bearer ${JWT}` : null ;
+    api.defaults.headers.post['X-CSRF-TOKEN'] = csrf.token;
+    api.defaults.withCredentials = true;
   }
 
   const get = (path,config) => {
     setHeader();
-    return axios.get(`${apiPath}/${path}`, config);
+    return api.get(`/${path}`, config);
   };
 
   const post = (path, data, config) => {
       setHeader();
-      return axios.post(`${apiPath}/${path}`, data, config);
+      return api.post(`/${path}`, data, config);
   };
 
   const put = (path,data,config) => {
     setHeader();
-    return axios.put(`${apiPath}/${path}`, data, config);
+    return api.put(`/${path}`, data, config);
   }
 
   const del = (path,config) => {
     setHeader();
-    return axios.delete(`${apiPath}/${path}`, config);
+    return api.delete(`/${path}`, config);
   }
 
   return {
     get,
     post,
     put,
-    del
+    del,
+    api
   };
 }

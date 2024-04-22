@@ -1,16 +1,27 @@
 import {useAuthAdmin} from "../hook/useAuthAdmin.jsx";
 import {useLocation, Navigate} from "react-router-dom";
+import {useSelector} from "react-redux";
+import {getAuth} from "../store/selectors/AuthSelectors.js";
+import {useEffect} from "react";
 
 
 function PrivateRoute({children}){
-  const auth = useAuthAdmin()
+  const authFunc = useAuthAdmin()
   const location = useLocation()
+  const auth = useSelector(getAuth)
+
+  useEffect(() => {
+    if(!auth.auth) {
+      navigate()
+    }
+  }, [auth.auth]);
+
 
 
   const navigate = () =>{
     return <Navigate to='/login' state={{from:location}} replace />
   }
-  return auth.isConnected() ? children : navigate();
+  return authFunc.isConnected() ? children : navigate();
 }
 
 export default PrivateRoute;

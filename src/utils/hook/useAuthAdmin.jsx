@@ -4,10 +4,13 @@ import  {useNavigate} from "react-router-dom";
 import {useSelector, useDispatch} from "react-redux";
 import {setAuth} from "../store/slices/AuthSlice.js";
 import {getAuth} from "../store/selectors/AuthSelectors.js";
+import localStorageConstant from "../../constants/localStorage.constant.js";
 
 const AuthContext = createContext();
 const basePath = "admin";
-const ADMIN_TOKEN_KEY = "admin_token";
+const LOCAL_STORAGE_ADMIN_JWT_TOKEN_KEY = localStorageConstant.ADMIN_JWT_TOKEN_KEY;
+const LOCAL_STORAGE_ADMIN_JWT_REFRESH_TOKEN_KEY = localStorageConstant.ADMIN_JWT_REFRESH_TOKEN_KEY
+
 const STATUT = {
   CONFIRMED: "confirmed",
   REFUSED: "refused",
@@ -32,6 +35,31 @@ function useProvideAuthAdmin(){
   const dispatch = useDispatch();
   const auth = useSelector(getAuth);
 
+  axios.api.interceptors.response.use(
+      (response) => response,
+      async function (error) {
+        const originalRequest = error.config
+        if (error.config.url !== '/admin/refreshToken' && error.response.status === 401 && !originalRequest._retry) {
+          originalRequest._retry = true;
+          const refreshToken = localStorage.getItem(LOCAL_STORAGE_ADMIN_JWT_REFRESH_TOKEN_KEY)
+          if(refreshToken && refreshToken !== '') {
+            axios.api.defaults.headers.common['Authorization'] = `Bearer ${refreshToken}`
+            console.log('refreshToken')
+            await axios.api.post('/admin/refreshToken').then((response) => {
+              originalRequest.headers['Authorization'] = `Bearer ${response.data.token}`
+              axios.api.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`
+              localStorage.setItem(LOCAL_STORAGE_ADMIN_JWT_TOKEN_KEY, response.data.token)
+            })
+            return axios.api(originalRequest)
+          }
+        }
+        dispatch(setAdmin(null))
+        localStorage.removeItem(LOCAL_STORAGE_ADMIN_JWT_TOKEN_KEY)
+        localStorage.removeItem(LOCAL_STORAGE_ADMIN_JWT_REFRESH_TOKEN_KEY)
+        return Promise.reject(error);
+      }
+  )
+
   const signin = (email,mdp,token) => {
     let data
     if(email.includes('@')){
@@ -48,22 +76,21 @@ function useProvideAuthAdmin(){
     if(auth.user !== null){
       return;
     }
-    if(localStorage.getItem(ADMIN_TOKEN_KEY)){
+    if(localStorage.getItem(LOCAL_STORAGE_ADMIN_JWT_TOKEN_KEY)){
       axios.get(`${basePath}/get`).then((res) =>{
         console.log(res)
         if(res.status === 401) {
           dispatch(setAuth(null));
-          localStorage.removeItem(ADMIN_TOKEN_KEY);
+          localStorage.removeItem(LOCAL_STORAGE_ADMIN_JWT_TOKEN_KEY);
         }else if(res.data) {
           dispatch(setAuth(res.data));
         }else {
           dispatch(setAuth(null));
-          localStorage.removeItem(ADMIN_TOKEN_KEY);
+          localStorage.removeItem(LOCAL_STORAGE_ADMIN_JWT_TOKEN_KEY);
         }
       }).catch((err) => {
-        console.log(err)
         dispatch(setAuth(null));
-        localStorage.removeItem(ADMIN_TOKEN_KEY);
+        localStorage.removeItem(LOCAL_STORAGE_ADMIN_JWT_TOKEN_KEY);
       })
     }else {
       dispatch(setAuth(null));
@@ -130,7 +157,7 @@ function useProvideAuthAdmin(){
   }
 
   const signout = () => {
-    localStorage.removeItem(ADMIN_TOKEN_KEY);
+    localStorage.removeItem(LOCAL_STORAGE_ADMIN_JWT_TOKEN_KEY);
     localStorage.clear();
     dispatch(setAuth(null));
     setAdmin(null);
