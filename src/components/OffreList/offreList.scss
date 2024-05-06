@@ -7,6 +7,10 @@
   @media (max-width: 768px){
     padding: 0 2rem;
   }
+  @media(max-width: 425px){
+    width: 100%;
+    padding: 0 2rem;
+  }
 }
 
 h4{
@@ -32,7 +36,10 @@ h4{
   padding: 1rem 0;
   @media (max-width: 768px){
     padding: 1rem 0;
-    width: 100vw;
+    width: 100%;
+  }
+  @media(max-width: 425px){
+    gap: 15px;
   }
 }
 
@@ -42,6 +49,10 @@ h4{
   overflow-wrap: break-word;
   width: 100%;
   border-bottom: 1px solid #66b280;
+  @media(max-width: 425px){
+    padding: 0;
+    display: none;
+  }
 }
 
 .div-title-offre{
@@ -52,6 +63,10 @@ h4{
   margin: 0.5rem;
   @media (max-width: 768px) {
     width: 15%;
+  }
+  @media(max-width: 425px){
+    margin: 0;
+    width: 20%;
   }
 }
 

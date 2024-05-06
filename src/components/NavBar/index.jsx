@@ -28,9 +28,6 @@ function NavBar(){
                     <NavLink className={"navLink"} to={'/adhesion'}>
                         Adhésion
                     </NavLink>
-                    <NavLink className={"navLink"} to={'/abonnement'}>
-                        Abonnement
-                    </NavLink>
                     <button className={`logout `} onClick={signout}>Déconnexion</button>
                 </div>
             </div>

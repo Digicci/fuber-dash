@@ -10,28 +10,28 @@ function OffreItem({item}){
     <>
       <div className={'offre-item'}>
         <div className={'offres'}>
-          <div className={'details-offre'}>
+          <div className={'details-offre'} data-label={'Nom offre'}>
             <p className={'text-offre'}>{item.nom_offre}</p>
           </div>
-          <div className={'details-offre'}>
+          <div className={'details-offre'} data-label={'Date début'}>
             <p className={'text-offre'}>{dateBeginning} / {displayHourBeginning}</p>
           </div>
-          <div className={'details-offre'}>
+          <div className={'details-offre'} data-label={'Date fin'}>
             <p className={'text-offre'}>{dateEnd} / {displayHourEnd}</p>
           </div>
-          <div className={'details-offre'}>
+          <div className={'details-offre'} data-label={'Code promo'}>
             <p className={'text-offre'}>{item.code_offre}</p>
           </div>
-          <div className={'details-offre'}>
+          <div className={'details-offre'} data-label={'Réccurrence'}>
             <p className={'text-offre'}>{item.reccurence} fois</p>
           </div>
-          <div className={'details-offre'}>
+          <div className={'details-offre'} data-label={'Montant de la réduction'}>
             <p className={'text-offre'}>{item.reduction} €</p>
           </div>
-          <div className={'details-offre'}>
+          <div className={'details-offre'} data-label={'Cummulable'}>
             <p className={'text-offre'}>{item.cummulable  ? 'Oui' : 'Non'}</p>
           </div>
-          <div className={'details-offre'}>
+          <div className={'details-offre'} data-label={'Pourcentage de la réduction'}>
             <p className={'text-offre'}>{item.pourcentage > 0 ? `${item.pourcentage} %` : 'Aucun'}</p>
           </div>
         </div>
