@@ -1,3 +1,4 @@
+import "./login.scss"
 import FormLogin from "../../components/FormLogin/index.jsx";
 import {useEffect} from "react";
 import {useNavigate} from "react-router-dom";

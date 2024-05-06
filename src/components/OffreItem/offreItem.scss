@@ -1,6 +1,11 @@
 .offre-item{
   display: flex;
   width: 100%;
+  @media(max-width: 425px){
+    width: calc(100vw - 5%);
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .offres{
@@ -8,6 +13,11 @@
   padding: .8rem 1rem;
   overflow-wrap: break-word;
   width: 100%;
+  @media(max-width: 425px){
+    flex-direction: column;
+    border: 1px solid var(--fourth-color);
+    border-radius: 8px;
+  }
 }
 
 .details-offre{
@@ -25,6 +35,21 @@
     width: 15%;
     i{
       font-size: 2rem;
+    }
+  }
+  @media(max-width: 425px){
+    margin: 0;
+    width: 100%;
+    justify-content: flex-end;
+    &:first-child{
+      justify-content: flex-end;
+    }
+    position: relative;
+    &::before{
+      position: absolute;
+      left: 0;
+      content: attr(data-label);
+      color: #66b280;
     }
   }
 }

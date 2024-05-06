@@ -104,6 +104,11 @@ function FormLogin(){
   return(
     <>
       <form method={'POST'} className={'container-form'}>
+        <div className={'title-login'}>
+          <h1>
+            Connexion
+          </h1>
+        </div>
         <div className={"div-input"}>
           <input
             type={'email'}
@@ -113,7 +118,7 @@ function FormLogin(){
             onChange={(e) => {handleChange(e,'mail')}}
             required
           />
-          <label>
+          <label className={'label-login'}>
             <i className="ph-bold ph-envelope"></i>
           </label>
         </div>
@@ -126,7 +131,7 @@ function FormLogin(){
           onChange={(e) => {handleChange(e,'mdp')}}
           required
         />
-        <label>
+        <label className={'label-login'}>
           <i className="ph-bold ph-lock-key"></i>
         </label>
         </div>

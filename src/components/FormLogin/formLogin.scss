@@ -2,8 +2,30 @@
   display: flex;
   width: 60%;
   flex-direction: column;
+  border: 3px solid var(--fourth-color);
+  border-radius: 5px;
+  padding: 5rem;
   @media (max-width: 768px){
     width: 100%;
+  }
+}
+
+.title-login{
+  background-color: var(--primary-color);
+  border-radius: 50px;
+  position: absolute;
+  top: 27%;
+  border: 3px solid var(--fourth-color);
+  h1{
+    color: var(--fourth-color);
+    padding: 1rem;
+    margin: 0;
+  }
+  @media(max-width: 768px){
+    top: 21%;
+    h1{
+      padding: .8rem;
+    }
   }
 }
 
@@ -22,11 +44,13 @@ input {
   outline: none;
 }
 
-label{
+.label-login{
   width: 10%;
   display: flex;
   justify-content: center;
+  align-items: center;
   font-size: 1.2rem;
+  background-color: var(--fourth-color);
 }
 
 .button-login {

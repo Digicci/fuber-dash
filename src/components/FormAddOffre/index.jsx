@@ -189,7 +189,7 @@ function FormAddOffre(){
           <label className={'label-input'}>
             Offre cummulable ?
           </label>
-          <select value={offre.cummulable} name={'cummulable'} required onChange={handleChange}>
+          <select className={'select-cummulable'} value={offre.cummulable} name={'cummulable'} required onChange={handleChange}>
             <option value={"true"}>Oui</option>
             <option value={"false"}>Non</option>
           </select>
@@ -207,16 +207,16 @@ function FormAddOffre(){
             placeholder={'Minimum : 0'}
           />
         </div>
-        <div className={'button-add'}>
-          <button
-            type={'submit'}
-            value={'Valider'}
-            onClick={handleSubmit}
-          >
-            Valider
-          </button>
-        </div>
       </form>
+      <div className={'button-add'}>
+        <button
+          type={'submit'}
+          value={'Valider'}
+          onClick={handleSubmit}
+        >
+          Valider
+        </button>
+      </div>
     </>
   )
 }
