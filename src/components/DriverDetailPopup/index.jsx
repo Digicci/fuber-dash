@@ -52,7 +52,7 @@ function DriverDetailPopUp({driver}) {
         type: 'success',
         icon: '👍',
       })
-
+      dispatch(bannedDriver(driver.id))
     })
   }
 

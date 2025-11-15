@@ -7,6 +7,7 @@ import { setEntreprise } from "../../utils/store/slices/EntrepriseSlice.js";
 import {useDispatch} from "react-redux";
 import {useOffer} from "../../utils/hook/useOffer.jsx";
 import {setOffer} from "../../utils/store/slices/OfferSlice.js";
+import {setAuth} from "../../utils/store/slices/AuthSlice.js";
 
 function Home(){
     const {getEntreprises} = useAuthAdmin()
@@ -16,10 +17,21 @@ function Home(){
     useEffect(() => {
         getEntreprises().then((data) => {
             dispatch(setEntreprise(data.data))
+        }).catch((err) => {
+            console.log(err)
+            if(err.status === 401) {
+                dispatch(setAuth(null))
+                dispatch(setEntreprise(null))
+            }
         })
         getOffer().then((data) => {
-            console.log(data)
             dispatch(setOffer(data.data))
+        }).catch((err) => {
+            console.log(err)
+            if(err.status === 401) {
+                dispatch(setAuth(null))
+                dispatch(setOffer(null))
+            }
         })
     }, []);
     return(

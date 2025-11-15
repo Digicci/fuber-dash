@@ -11,7 +11,7 @@ const basePath = "admin";
 const LOCAL_STORAGE_ADMIN_JWT_TOKEN_KEY = localStorageConstant.ADMIN_JWT_TOKEN_KEY;
 const LOCAL_STORAGE_ADMIN_JWT_REFRESH_TOKEN_KEY = localStorageConstant.ADMIN_JWT_REFRESH_TOKEN_KEY
 
-const STATUT = {
+export const STATUT = {
   CONFIRMED: "confirmed",
   REFUSED: "refused",
   BANNED: "banned"
@@ -38,6 +38,7 @@ function useProvideAuthAdmin(){
   axios.api.interceptors.response.use(
       (response) => response,
       async function (error) {
+        console.log(error)
         const originalRequest = error.config
         if (error.config.url !== '/admin/refreshToken' && error.response.status === 401 && !originalRequest._retry) {
           originalRequest._retry = true;
@@ -53,9 +54,7 @@ function useProvideAuthAdmin(){
             return axios.api(originalRequest)
           }
         }
-        dispatch(setAdmin(null))
-        localStorage.removeItem(LOCAL_STORAGE_ADMIN_JWT_TOKEN_KEY)
-        localStorage.removeItem(LOCAL_STORAGE_ADMIN_JWT_REFRESH_TOKEN_KEY)
+        signout()
         return Promise.reject(error);
       }
   )
