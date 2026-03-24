@@ -32,6 +32,7 @@
       width: 30%;
       border-radius: 5px;
       background-color: var(--red-color);
+      border: none;
 
       i{
         font-size: 1.95rem;
@@ -41,11 +42,15 @@
     }
   }
   .details-team {
+
     table {
       border-collapse: collapse;
-      border: 2px solid var(--fourth-color);
+      border: none;
       font-size: 0.8rem;
       letter-spacing: 1px;
+      @media (max-width: 768px) {
+        display: flex;
+      }
     }
 
     caption {
@@ -58,7 +63,18 @@
     td {
       border: 1px solid var(--fourth-color) ;
       padding: 8px 10px;
+      @media (max-width: 768px) {
+        width: 37vw;
+        display: flex;
+        flex-direction: column;
+        padding: 0.5rem 2rem;
+      }
     }
 
   }
+
+}
+.button-update{
+  border: none;
+  font-size: 1.2rem;
 }

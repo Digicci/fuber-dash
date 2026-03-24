@@ -1,19 +1,27 @@
 import './DriverDetailPopup.scss'
 import {useDispatch, useSelector} from "react-redux";
-import {getTeam} from "../../utils/store/selectors/AuthSelectors.js";
+import {getAuthUser, getDriver, getTeam} from "../../utils/store/selectors/AuthSelectors.js";
 import TeamInfoTable from "../TeamInfoTable/index.jsx";
 import {useAuthAdmin} from "../../utils/hook/useAuthAdmin.jsx";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {setTeam} from "../../utils/store/slices/TeamEmployerSlice.js";
 import {toast} from "react-toastify";
 import {usePopupContext} from "../../utils/hook/usePopup.jsx";
+import {setEntrepriseCommission} from "../../utils/store/slices/EntrepriseSlice.js";
 
 
-function DriverDetailPopUp({driver}) {
+function DriverDetailPopUp({driverId}) {
 
-  const {getTeamEmployer, bannedDriver} = useAuthAdmin()
+  const driver = useSelector(getDriver(driverId))
+  const {getTeamEmployer, bannedDriver,updateDriverCommission} = useAuthAdmin()
   const dispatch = useDispatch()
   const team = useSelector(getTeam)
+  const entreprise = useSelector(getAuthUser)
+  const [update, setUpdate] = useState({
+    commission:false,
+  })
+
+  const [entrepriseCopy, setEntrepriseCopy] = useState({...entreprise})
 
   useEffect(() => {
     getTeamEmployer(driver.id).then((data) => {
@@ -56,6 +64,70 @@ function DriverDetailPopUp({driver}) {
     })
   }
 
+  const toggleUpdate = (e) => {
+    const field = e.target.attributes.datafield.value
+    let state = {...update}
+    state[field] = !state[field]
+    setUpdate(state)
+    const entrepriseState = {...entrepriseCopy}
+    if(field ===('commission')){
+      entrepriseState.commission = entreprise.commission
+    }
+    entrepriseState[field] = entreprise[field]
+    setEntrepriseCopy(entrepriseCopy)
+  }
+
+  const handleChange = (e) => {
+    const field = e.target.name
+    let state = {...entrepriseCopy}
+    field === 'commission' ? state[field] = e.target.value.replace(',','.') : state[field] = e.target.value
+    setEntrepriseCopy(state)
+  }
+
+  const updateCom = () => {
+
+    const commission = entrepriseCopy.commission;
+
+    if (commission == null || commission === '') {
+      toast.error('La commission est vide');
+      return;
+    }
+
+    const parsedCommission = Number(commission);
+
+    if (Number.isNaN(parsedCommission)) {
+      toast.error('La commission doit être un nombre valide');
+      return;
+    }
+
+    updateDriverCommission(driver.id,parsedCommission).then(() => {
+      dispatch(setEntrepriseCommission({
+        id:driver.id,
+        commission: parsedCommission
+      }))
+      setUpdate({
+        commission: false
+      })
+      toast.success('La commission a bien été mise à jour',{
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        icon: '👌',
+      })
+    }).catch((err) => {
+      toast.error('Une erreur est survenue',{
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        icon: '❌',
+      })
+    })
+  }
+
   const exclude = ['id', 'createdAt', 'updatedAt', 'employerId', 'statut', 'staff']
   return (
     <div className={'driver-details-container'}>
@@ -66,18 +138,42 @@ function DriverDetailPopUp({driver}) {
         <div className={'details-entreprise'}>
           {
             Object.keys(driver).map((data, index) => {
+              if(exclude.includes(data)) return
               return (
-                !exclude.includes(data) &&
 
-                <p key={index}>
-                  <strong>{
-                    data[0].toUpperCase() + data.substring(1)
-                  } : </strong>
-                  {
-                    driver[data]
-                  }
-                </p>
+                data==='commission' ? (
+                    update.commission ? (
+                        <>
+                          <label htmlFor="">Commission: </label>
+                          <input type="text" name={'commission'} value={entrepriseCopy.commission ?? ''} placeholder={entreprise.commission} onChange={handleChange} />
+                          <button onClick={updateCom}><i className="ph-bold ph-check"></i></button>
+                          <button datafield="commission" onClick={toggleUpdate}><i className="ph-bold ph-x"></i></button>
+                        </>
+                    ) : (
+                        <p key={index}>
+                      <strong>{
+                          data[0].toUpperCase() + data.substring(1)
+                      } : </strong>
+                      {
+                        driver[data]
+                      }
+                      <button className={'button-update'}><i className="ph-bold ph-pencil" datafield="commission" onClick={toggleUpdate}></i></button>
+                    </p>)
+                ) : (
+                    <p key={index}>
+                      <strong>{
+                          data[0].toUpperCase() + data.substring(1)
+                      } : </strong>
+                      {
+                        driver[data]
+                      }
+                      {data === 'commission' &&
+                          <button className={'button-update'}><i className="ph-bold ph-pencil" datafield="commission" onClick={toggleUpdate}></i></button>
+                      }
+                    </p>
+                )
               )
+
             })
           }
         </div>
