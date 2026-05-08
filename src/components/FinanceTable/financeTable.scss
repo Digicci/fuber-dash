@@ -1,0 +1,38 @@
+.finance-table{
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 15%;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+
+  th,td{
+    padding: 14px;
+    text-align: left;
+  }
+  th{
+    background: #f9fafb;
+    font-size: 13px;
+    text-transform: uppercase;
+    color: #6b7280;
+  }
+  tr{
+    border-bottom: 1px solid #66b280;
+  }
+  tr:last-child{
+    border-bottom: none;
+  }
+  td{
+    font-size: 14px;
+  }
+  td[colspan]{
+    text-align: center;
+    color: #6b7280;
+  }
+}
+@media (max-width: 900px) {
+  .finance-table {
+    display: block;
+    overflow-x: auto;
+  }
+}

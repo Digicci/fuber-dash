@@ -9,6 +9,7 @@ import PopupContainer from "./components/PopupContainer/index.jsx";
 import Adhesion from "./pages/Adhesion/index.jsx";
 import {useSelector} from "react-redux";
 import {getAuth} from "./utils/store/selectors/AuthSelectors.js";
+import Finance from "./pages/Finance/index.jsx";
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
               <Route path={"/"} element={<PrivateRoute><Home/></PrivateRoute>}/>
               <Route path={"/offre"} element={<PrivateRoute><Offre/></PrivateRoute>}/>
               <Route path={"/adhesion"} element={<PrivateRoute><Adhesion/></PrivateRoute>}/>
+              <Route path={'/finance'} element={<PrivateRoute><Finance/></PrivateRoute>}/>
               <Route path={"/login"} element={<Login/>}/>
             </Routes>
             <PopupContainer/>

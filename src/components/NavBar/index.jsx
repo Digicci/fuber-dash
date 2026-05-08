@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import { useState} from "react";
 import {NavLink} from "react-router-dom";
 import './navBar.scss';
 import {useAuthAdmin} from "../../utils/hook/useAuthAdmin.jsx";
@@ -27,6 +27,9 @@ function NavBar(){
                     </NavLink>
                     <NavLink className={"navLink"} to={'/adhesion'}>
                         Adhésion
+                    </NavLink>
+                    <NavLink className={"navLink"} to={'/finance'}>
+                        Finance
                     </NavLink>
                     <button className={`logout `} onClick={signout}>Déconnexion</button>
                 </div>

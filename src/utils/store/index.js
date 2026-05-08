@@ -3,6 +3,7 @@ import EntrepriseReducer from "./slices/EntrepriseSlice.js";
 import {configureStore} from "@reduxjs/toolkit";
 import TeamEmployerReducer from "./slices/TeamEmployerSlice.js";
 import OfferSlice from "./slices/OfferSlice.js";
+import FinanceReducer from "./slices/FinanceSlice.js"
 
  export const store = configureStore({
   reducer: {
@@ -10,5 +11,6 @@ import OfferSlice from "./slices/OfferSlice.js";
     entreprise: EntrepriseReducer,
     team: TeamEmployerReducer,
     offer: OfferSlice,
+    finance: FinanceReducer,
   },
 })
