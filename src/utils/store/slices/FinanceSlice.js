@@ -6,6 +6,8 @@ const initialState = {
   totalReversed: 0,
   siteRevenue: 0,
   companies: [],
+  loadedStart: null,
+  loadedEnd: null,
 }
 
 export const FinanceSlice = createSlice({
@@ -23,6 +25,8 @@ export const FinanceSlice = createSlice({
       state.totalReversed = action.payload.totalReversed ?? 0;
       state.siteRevenue = action.payload.siteRevenue ?? 0;
       state.companies = action.payload.companies ?? [];
+      state.loadedStart = action.payload.start;
+      state.loadedEnd = action.payload.end;
     },
 
     clearFinance: () => initialState,
