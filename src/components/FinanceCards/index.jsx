@@ -5,15 +5,15 @@ function FinanceCards({finance}){
     <div className={"finance-cards"}>
       <div className={"card"}>
         <span>Total encaissé </span>
-        <strong>{finance.totalRevenue} €</strong>
+        <strong>{finance.totalRevenue.toFixed(2)} €</strong>
       </div>
       <div className={"card"}>
         <span>Reversé </span>
-        <strong>{finance.totalReversed} €</strong>
+        <strong>{finance.totalReversed.toFixed(2)} €</strong>
       </div>
       <div className={"card success"}>
         <span>Bénéfice site </span>
-        <strong>{finance.siteRevenue} €</strong>
+        <strong>{finance.siteRevenue.toFixed(2)} €</strong>
       </div>
     </div>
   )

@@ -25,9 +25,9 @@ function FinanceTable({companies}) {
             <tr key={c.id}>
               <td>{c.name}</td>
               <td>{c.racesCount}</td>
-              <td>{c.totalRevenue}</td>
-              <td>{c.totalReversed}</td>
-              <td>{c.siteRevenue}</td>
+              <td>{c.totalRevenue.toFixed(2)}</td>
+              <td>{c.totalReversed.toFixed(2)}</td>
+              <td>{c.siteRevenue.toFixed(2)}</td>
             </tr>
           ))
         )}
