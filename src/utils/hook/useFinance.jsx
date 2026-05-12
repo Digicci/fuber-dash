@@ -39,13 +39,7 @@ export const useFinance = () => {
       startTime: new Date(start).getTime(),
       endTime: new Date(end).getTime(),
     });
-    console.log("PERIOD:", period);
-    console.log("REQUEST START:", start);
-    console.log("REQUEST END:", end);
-    console.log("LOADED START:", finance.loadedStart);
-    console.log("LOADED END:", finance.loadedEnd);
     if (!start || !end) {
-      console.warn("fetchFinance appelé sans start/end");
       return;
     }
 
@@ -59,7 +53,6 @@ export const useFinance = () => {
     if(alreadyLoaded){
       return;
     }
-    console.log("ALREADY LOADED:", alreadyLoaded);
 
     dispatch(setFinanceLoading(true));
 
@@ -90,7 +83,6 @@ export const useFinance = () => {
         };
       });
 
-      console.log("API DATA:", res.data);
       dispatch(setFinanceData({
         totalRevenue: companies.reduce((sum, c) => sum + c.totalRevenue, 0),
         totalReversed: companies.reduce((sum, c) => sum + c.totalReversed, 0),

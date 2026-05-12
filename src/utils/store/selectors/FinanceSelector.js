@@ -41,19 +41,11 @@ export const getFinanceCompaniesFilters = (start, end, period) => (state) => {
           course.created_at;
 
         if (!dateValue) {
-          console.log("course sans date:", course);
           return false;
         }
 
         const courseTime = new Date(dateValue).getTime();
 
-        console.log({
-          dateValue,
-          courseTime,
-          startTime,
-          endTime,
-          isValid: courseTime >= startTime && courseTime <= endTime,
-        });
 
         return courseTime >= startTime && courseTime <= endTime;
       });
