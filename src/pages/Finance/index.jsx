@@ -11,7 +11,6 @@ import {useEffect, useMemo} from "react";
 function Finance(){
 
     const {
-      finance,
       period,
       setPeriod,
       search,
@@ -38,13 +37,6 @@ function Finance(){
     const filteredCompanies = useSelector(
       getFinanceCompaniesFilters(start,end,period)
     );
-
-  console.log("period:", period);
-  console.log("start:", start);
-  console.log("end:", end);
-  console.log("filteredCompanies:", filteredCompanies);
-  console.log("courses store:", finance.companies?.[0]?.courses);
-  console.log("employes store:", finance.companies?.[0]?.employes);
 
     return(
         <div className={'financePage'}>
