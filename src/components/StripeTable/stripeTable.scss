@@ -1,0 +1,23 @@
+.stripe-table{
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+  th,td{
+    padding: 14px;
+    border-bottom: 1px solid #66b280;
+    text-align: left;
+  }
+  th{
+    background: #f9fafb;
+    color: #6b7280;
+    font-size: 13px;
+    text-transform: uppercase;
+  }
+  td{
+    font-size: 14px;
+    color: #000000;
+  }
+}

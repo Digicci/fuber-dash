@@ -31,6 +31,9 @@ function NavBar(){
                     <NavLink className={"navLink"} to={'/finance'}>
                         Finance
                     </NavLink>
+                    <NavLink className={"navLink"} to={'/stripe'}>
+                        Stripe
+                    </NavLink>
                     <button className={`logout `} onClick={signout}>Déconnexion</button>
                 </div>
             </div>

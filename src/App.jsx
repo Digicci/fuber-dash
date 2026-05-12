@@ -10,6 +10,7 @@ import Adhesion from "./pages/Adhesion/index.jsx";
 import {useSelector} from "react-redux";
 import {getAuth} from "./utils/store/selectors/AuthSelectors.js";
 import Finance from "./pages/Finance/index.jsx";
+import StripePage from "./pages/StripePage/index.jsx";
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
               <Route path={"/offre"} element={<PrivateRoute><Offre/></PrivateRoute>}/>
               <Route path={"/adhesion"} element={<PrivateRoute><Adhesion/></PrivateRoute>}/>
               <Route path={'/finance'} element={<PrivateRoute><Finance/></PrivateRoute>}/>
+              <Route path={'/stripe'} element={<PrivateRoute><StripePage/></PrivateRoute>}/>
               <Route path={"/login"} element={<Login/>}/>
             </Routes>
             <PopupContainer/>

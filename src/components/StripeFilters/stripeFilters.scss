@@ -1,0 +1,42 @@
+.stripe-filter{
+  margin-bottom: 24px;
+  .status-select {
+    display: flex;
+    gap: 10px;
+    label{
+      font-weight: 600;
+    }
+    select{
+      appearance: menulist-button;
+      padding: 0.5rem;
+      border: 2px solid #8ec89a;
+      border-radius: 10px;
+    }
+  }
+  form{
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+
+    input,select{
+      padding: 10px 14px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      outline: none;
+    }
+
+    input{
+      max-width: 250px;
+    }
+
+    button{
+      padding: 10px 16px;
+      border: none;
+      border-radius: 10px;
+      background: #111827;
+      color: white;
+      cursor: pointer;
+      font-weight: 600;
+    }
+  }
+}
