@@ -207,16 +207,15 @@ function FormAddOffre(){
             placeholder={'Minimum : 0'}
           />
         </div>
+        <div className={'button-add'}>
+          <button
+            type={'submit'}
+            onClick={handleSubmit}
+          >
+            Valider
+          </button>
+        </div>
       </form>
-      <div className={'button-add'}>
-        <button
-          type={'submit'}
-          value={'Valider'}
-          onClick={handleSubmit}
-        >
-          Valider
-        </button>
-      </div>
     </>
   )
 }
