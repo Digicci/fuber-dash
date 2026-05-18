@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useState, useMemo} from "react";
 import {useSelector, useDispatch} from "react-redux";
 import {useAxios} from "./useAxios.jsx";
 import {
@@ -6,29 +6,44 @@ import {
   setStripePayments,
 } from "../store/slices/StripePaymentsSlice.js";
 import {
-  getStripePayments,
   getStripePaymentsLoading,
+  getStripePayments
 } from "../store/selectors/StripePaymentsSelector.js";
 
 export const useStripePayments = () => {
   const axios = useAxios();
   const dispatch = useDispatch();
-
-  const payments = useSelector(getStripePayments);
   const loading = useSelector(getStripePaymentsLoading);
 
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState("all");
 
+  const allPayments = useSelector(getStripePayments);
+
+  const payments = useMemo(() => {
+    const searchValue = search.trim().toLowerCase();
+
+    return allPayments.filter((payment) => {
+      const matchStatus =
+        status === "all" || payment.status === status;
+
+      const matchSearch =
+        !searchValue ||
+        payment.id?.toLowerCase().includes(searchValue) ||
+        payment.customerStripeId?.toLowerCase().includes(searchValue) ||
+        payment.course?.utilisateur?.nom?.toLowerCase().includes(searchValue) ||
+        payment.course?.utilisateur?.prenom?.toLowerCase().includes(searchValue) ||
+        payment.course?.entreprise?.nom_commercial?.toLowerCase().includes(searchValue);
+
+      return matchStatus && matchSearch;
+    });
+  }, [allPayments, search, status]);
   const fetchStripePayments = async () => {
     try {
       dispatch(setStripePaymentsLoading(true));
-      const res = await axios.get("/admin/stripe/payments",{
-        params: {
-          search,
-          status,
-        },
-      });
+      const res = await axios.get("admin/stripe/payments");
+
+      console.log("res.data stripe:", res.data);
 
       dispatch(setStripePayments(res.data))
     }catch (error) {

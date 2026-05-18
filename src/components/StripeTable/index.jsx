@@ -9,7 +9,6 @@ function StripeTable({payments}){
         <th>Entreprise</th>
         <th>Montant</th>
         <th>Statut</th>
-        <th>Remboursé</th>
         <th>Date</th>
       </tr>
       </thead>
@@ -17,18 +16,23 @@ function StripeTable({payments}){
       <tbody>
       {payments.length === 0 ? (
         <tr>
-          <td></td>
+          <td colSpan="6">Aucune donnée</td>
         </tr>
       ) : (
         payments.map((payment) => (
           <tr key={payment.id}>
-            <td>{payment.stripePaymentId}</td>
-            <td>{payment.client}</td>
-            <td>{payment.entreprise.name}</td>
-            <td>{Number(payment.amount).toFixed(2)}</td>
+            <td>{payment.id}</td>
+            <td>
+              {payment.course?.utilisateur
+                ? `${payment.course.utilisateur.nom} ${payment.course.utilisateur.prenom}`
+                : "Non renseigné"}
+            </td>
+            <td>
+              {payment.course?.entreprise?.nom_commercial ?? "Non renseigné"}
+            </td>
+            <td>{(payment.amount / 100).toFixed(2)} €</td>
             <td>{payment.status}</td>
-            <td>{payment.refunded ? "Oui" : "Non"}</td>
-            <td>{new Date(payment.createdAt).toLocaleString()}</td>
+            <td>{new Date(payment.createdAt * 1000).toLocaleString()}</td>
           </tr>
         ))
       )}

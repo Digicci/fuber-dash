@@ -36,6 +36,9 @@ function StripeFilters({search,setSearch,status,setStatus,onSearch}){
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
+
+        <button type="submit">Rechercher</button>
+
       </form>
     </div>
   )

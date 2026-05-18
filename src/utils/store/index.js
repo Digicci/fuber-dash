@@ -13,6 +13,6 @@ import StripePaymentsReducer from "./slices/StripePaymentsSlice.js";
     team: TeamEmployerReducer,
     offer: OfferSlice,
     finance: FinanceReducer,
-    stipe: StripePaymentsReducer,
+    stipePayements: StripePaymentsReducer,
   },
 })
