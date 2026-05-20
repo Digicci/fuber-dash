@@ -3,6 +3,7 @@ import {useStripePayments} from "../../utils/hook/useStripePayments.jsx";
 import './stripe.scss'
 import StripeTable from "../../components/StripeTable/index.jsx";
 import StripeFilters from "../../components/StripeFilters/index.jsx";
+import {useSelector} from "react-redux";
 
 function StripePage(){
   const {
@@ -18,6 +19,8 @@ function StripePage(){
   useEffect(() => {
     fetchStripePayments();
   }, [status]);
+
+  console.log("payments envoyés à la table:", payments);
 
   return(
     <div className={"stripe-page"}>

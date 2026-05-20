@@ -1,5 +1,6 @@
 import './stripeTable.scss'
 function StripeTable({payments}){
+  console.log("payments reçus dans StripeTable:", payments);
   return(
     <table className={'stripe-table'}>
       <thead>
@@ -9,6 +10,7 @@ function StripeTable({payments}){
         <th>Entreprise</th>
         <th>Montant</th>
         <th>Statut</th>
+        <th>Remboursement</th>
         <th>Date</th>
       </tr>
       </thead>
@@ -23,16 +25,21 @@ function StripeTable({payments}){
           <tr key={payment.id}>
             <td>{payment.id}</td>
             <td>
-              {payment.course?.utilisateur
-                ? `${payment.course.utilisateur.nom} ${payment.course.utilisateur.prenom}`
+              {payment.utilisateur
+                ? `${payment.utilisateur.nom} ${payment.utilisateur.prenom}`
                 : "Non renseigné"}
             </td>
             <td>
-              {payment.course?.entreprise?.nom_commercial ?? "Non renseigné"}
+              {payment.entreprise?.nom_commercial ?? "Non renseigné"}
             </td>
             <td>{(payment.amount / 100).toFixed(2)} €</td>
             <td>{payment.status}</td>
-            <td>{new Date(payment.createdAt * 1000).toLocaleString()}</td>
+            <td>
+              {payment.state === "refunded"
+                ? "Remboursé"
+                : "Non remboursé"}
+            </td>
+            <td>{new Date(payment.createdAt).toLocaleString()}</td>
           </tr>
         ))
       )}

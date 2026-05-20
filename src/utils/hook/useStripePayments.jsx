@@ -31,13 +31,18 @@ export const useStripePayments = () => {
         !searchValue ||
         payment.id?.toLowerCase().includes(searchValue) ||
         payment.customerStripeId?.toLowerCase().includes(searchValue) ||
-        payment.course?.utilisateur?.nom?.toLowerCase().includes(searchValue) ||
-        payment.course?.utilisateur?.prenom?.toLowerCase().includes(searchValue) ||
-        payment.course?.entreprise?.nom_commercial?.toLowerCase().includes(searchValue);
+        payment.utilisateur?.nom?.toLowerCase().includes(searchValue) ||
+        payment.utilisateur?.prenom?.toLowerCase().includes(searchValue) ||
+        payment.utilisateur?.mail?.toLowerCase().includes(searchValue) ||
+        payment.entreprise?.nom_commercial?.toLowerCase().includes(searchValue);
 
       return matchStatus && matchSearch;
     });
   }, [allPayments, search, status]);
+
+  console.log("allPayments store:", allPayments);
+  console.log("payments filtrés:", payments);
+
   const fetchStripePayments = async () => {
     try {
       dispatch(setStripePaymentsLoading(true));

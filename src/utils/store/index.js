@@ -3,8 +3,8 @@ import EntrepriseReducer from "./slices/EntrepriseSlice.js";
 import {configureStore} from "@reduxjs/toolkit";
 import TeamEmployerReducer from "./slices/TeamEmployerSlice.js";
 import OfferSlice from "./slices/OfferSlice.js";
-import FinanceReducer from "./slices/FinanceSlice.js"
-import StripePaymentsReducer from "./slices/StripePaymentsSlice.js";
+import FinanceReducer from "./slices/FinanceSlice.js";
+import stripePaymentsReducer from "./slices/StripePaymentsSlice";
 
  export const store = configureStore({
   reducer: {
@@ -13,6 +13,6 @@ import StripePaymentsReducer from "./slices/StripePaymentsSlice.js";
     team: TeamEmployerReducer,
     offer: OfferSlice,
     finance: FinanceReducer,
-    stipePayements: StripePaymentsReducer,
+    stripePayments: stripePaymentsReducer,
   },
 })

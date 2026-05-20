@@ -1,7 +1,7 @@
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  loading :false,
+  loading: false,
   payments: [],
 };
 
@@ -9,18 +9,19 @@ export const StripePaymentsSlice = createSlice({
   name: "stripePayments",
   initialState,
   reducers: {
-    setStripePaymentsLoading: (state,action) => {
+    setStripePaymentsLoading: (state, action) => {
       state.loading = action.payload;
     },
-    setStripePayments: (state,action) => {
+
+    setStripePayments: (state, action) => {
       state.payments = action.payload ?? [];
     },
   },
 });
 
 export const {
-  setStripePaymentsLoading,
   setStripePayments,
+  setStripePaymentsLoading,
 } = StripePaymentsSlice.actions;
 
 export default StripePaymentsSlice.reducer;
