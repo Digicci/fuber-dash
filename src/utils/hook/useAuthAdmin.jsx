@@ -156,6 +156,21 @@ function useProvideAuthAdmin(){
     return axios.post(`${basePath}/updateDriverPending`, data)
   }
 
+  const updateDriverCommission = (id,commission) => {
+    if(id == null){
+      return new Promise((resolve) => {
+        resolve(null)
+      })
+    }
+    const data = {
+      driverId: id,
+      commission: commission
+    }
+
+    console.log('payload envoyé:', data);
+    return axios.post(`${basePath}/updateDriverCommission`,data)
+  }
+
   const signout = () => {
     localStorage.removeItem(LOCAL_STORAGE_ADMIN_JWT_TOKEN_KEY);
     localStorage.clear();
@@ -179,6 +194,7 @@ function useProvideAuthAdmin(){
     getTeamEmployer,
     confirmedDriver,
     refusedDriver,
-    bannedDriver
+    bannedDriver,
+    updateDriverCommission
   }
 }

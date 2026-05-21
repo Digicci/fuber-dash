@@ -13,7 +13,7 @@ function DriversItem({item}){
 
   const showDetail = () => {
     resetPopup()
-    definePopup(<DriverDetailPopUp driver={item}/>)
+    definePopup(<DriverDetailPopUp driverId={item.id}/>)
     openPopup()
   }
   return (

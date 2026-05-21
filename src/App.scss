@@ -20,12 +20,12 @@
 * {
   box-sizing: border-box;
   margin: 0;
-  outline: none;
   padding: 0;
 }
 
-html, body {
+html, body, #root {
   overflow-x: hidden;
+  width: 100%;
 }
 
 ::-webkit-scrollbar {
@@ -34,4 +34,13 @@ html, body {
 
 ::-webkit-scrollbar-thumb {
   background: #66b280;
+}
+
+.admin-layout,
+.main,
+.content {
+  min-height: 100vh;
+  height: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
 }

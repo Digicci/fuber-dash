@@ -1,0 +1,124 @@
+.finance-table{
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 15%;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+
+  th,td{
+    padding: 14px;
+    text-align: left;
+  }
+  th{
+    background: #f9fafb;
+    font-size: 13px;
+    text-transform: uppercase;
+    color: #6b7280;
+  }
+  tr{
+    border-bottom: 1px solid #66b280;
+  }
+  tr:last-child{
+    border-bottom: none;
+  }
+  td{
+    font-size: 14px;
+    color: #000000;
+  }
+  td[colspan]{
+    text-align: center;
+    color: #6b7280;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .finance-table {
+    th,
+    td {
+      padding: 12px;
+      font-size: 13px;
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .finance-table {
+    display: block;
+    width: 100%;
+    background: transparent;
+    box-shadow: none;
+    border-radius: 0;
+
+    thead {
+      display: none;
+    }
+
+    tbody {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    tr {
+      display: flex;
+      flex-direction: column;
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 1rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      border-bottom: none;
+    }
+
+    td {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: .5rem 0;
+      border-bottom: 1px solid #e5e7eb;
+      font-size: 14px;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &:nth-child(1)::before {
+        content: "Entreprise";
+        color: #6b7280;
+        font-weight: 700;
+      }
+
+      &:nth-child(2)::before {
+        content: "Courses";
+        color: #6b7280;
+        font-weight: 700;
+      }
+
+      &:nth-child(3)::before {
+        content: "Total";
+        color: #6b7280;
+        font-weight: 700;
+      }
+
+      &:nth-child(4)::before {
+        content: "Reversé";
+        color: #6b7280;
+        font-weight: 700;
+      }
+
+      &:nth-child(5)::before {
+        content: "Commission";
+        color: #6b7280;
+        font-weight: 700;
+      }
+    }
+
+    td[colspan] {
+      justify-content: center;
+
+      &::before {
+        display: none;
+      }
+    }
+  }
+}
