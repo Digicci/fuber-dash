@@ -34,9 +34,21 @@ function Finance(){
     fetchFinance(start, end);
   };
 
-    const filteredCompanies = useSelector(
-      getFinanceCompaniesFilters(start,end,period)
+  const companiesByPeriod = useSelector(
+    getFinanceCompaniesFilters(start, end, period)
+  );
+  const companies = useMemo(() => {
+    const value = search.trim().toLowerCase();
+
+    if (!value) return companiesByPeriod;
+
+    return companiesByPeriod.filter((company) =>
+      String(company.name ?? "").toLowerCase().includes(value) ||
+      String(company.nom_commercial ?? "").toLowerCase().includes(value) ||
+      String(company.mail ?? "").toLowerCase().includes(value) ||
+      String(company.siret ?? "").toLowerCase().includes(value)
     );
+  }, [companiesByPeriod, search]);
 
     return(
         <div className={'financePage'}>
@@ -50,9 +62,9 @@ function Finance(){
               onSearch={handleSearch}
             />
 
-            <FinanceCards companies={filteredCompanies}/>
+            <FinanceCards companies={companies}/>
 
-            <FinanceTable companies={filteredCompanies}/>
+            <FinanceTable companies={companies}/>
         </div>
     )
 }

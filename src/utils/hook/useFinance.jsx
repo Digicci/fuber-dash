@@ -57,7 +57,7 @@ export const useFinance = () => {
     dispatch(setFinanceLoading(true));
 
     try {
-      const res = await axios.get(`admin/entreprise/details`, {params: {period,search },});
+      const res = await axios.get(`admin/entreprise/details`, {params: {period},});
       const companies = res.data.map((entreprise) => {
         const totalRaceEmployes = entreprise.employes.reduce((acc,cur) => {return acc + cur.courses.reduce((total,course) => {return total + course.total},0)},0)
         const totalRevenue = Number(entreprise.courses.reduce((acc, cur) => {

@@ -24,31 +24,30 @@ export const useStripePayments = () => {
     const searchValue = search.trim().toLowerCase();
 
     return allPayments.filter((payment) => {
+
       const matchStatus =
-        status === "all" || payment.status === status;
+        status === "all" ||
+        payment.status === status ||
+        payment.state === status;
 
       const matchSearch =
         !searchValue ||
-        payment.id?.toLowerCase().includes(searchValue) ||
-        payment.customerStripeId?.toLowerCase().includes(searchValue) ||
-        payment.utilisateur?.nom?.toLowerCase().includes(searchValue) ||
-        payment.utilisateur?.prenom?.toLowerCase().includes(searchValue) ||
-        payment.utilisateur?.mail?.toLowerCase().includes(searchValue) ||
-        payment.entreprise?.nom_commercial?.toLowerCase().includes(searchValue);
+        String(payment.id ?? "").toLowerCase().includes(searchValue) ||
+        String(payment.customerStripeId ?? "").toLowerCase().includes(searchValue) ||
+        String(payment.utilisateur?.nom ?? "").toLowerCase().includes(searchValue) ||
+        String(payment.utilisateur?.prenom ?? "").toLowerCase().includes(searchValue) ||
+        String(payment.utilisateur?.mail ?? "").toLowerCase().includes(searchValue) ||
+        String(payment.entreprise?.nom_commercial ?? "").toLowerCase().includes(searchValue);
 
       return matchStatus && matchSearch;
     });
-  }, [allPayments, search, status]);
 
-  console.log("allPayments store:", allPayments);
-  console.log("payments filtrés:", payments);
+  }, [allPayments, search, status]);
 
   const fetchStripePayments = async () => {
     try {
       dispatch(setStripePaymentsLoading(true));
       const res = await axios.get("admin/stripe/payments");
-
-      console.log("res.data stripe:", res.data);
 
       dispatch(setStripePayments(res.data))
     }catch (error) {

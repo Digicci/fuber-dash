@@ -1,6 +1,5 @@
 import './stripeTable.scss'
 function StripeTable({payments}){
-  console.log("payments reçus dans StripeTable:", payments);
   return(
     <table className={'stripe-table'}>
       <thead>
@@ -18,7 +17,7 @@ function StripeTable({payments}){
       <tbody>
       {payments.length === 0 ? (
         <tr>
-          <td colSpan="6">Aucune donnée</td>
+          <td colSpan="7">Aucune donnée</td>
         </tr>
       ) : (
         payments.map((payment) => (

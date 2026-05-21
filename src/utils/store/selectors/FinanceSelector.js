@@ -1,59 +1,47 @@
 export const getFinance = (state) => state.finance;
 
-export const getFinanceLoading = (state) => state.finance.loading;
+export const getFinanceCompaniesFilters =
+  (start, end, period) =>
+    (state) => {
+      const companies = state.finance.companies ?? [];
 
-export const getFinanceCompanies = (state) => state.finance.companies;
+      if (period === "all") {
+        return companies;
+      }
 
-/*export const getFinanceCompaniesFilters = (start,end) => (state) => state.finance.companies.reduce((acc,companie) => {
-  return [
-    ...acc,
-    {
-      ...companie,
-      courses: companie.courses.filter(c => c.createdAt > start && c.createdAt < end),
-      employes: companie.employes.map(e => {
-        return {
-          ...e,
-          courses: e.courses.filter(c => c.createdAt > start && c.createdAt < end)
-        }
-      })
-    }
-  ]
-}) */
+      const startTime = new Date(start).getTime();
+      const endTime = new Date(end).getTime();
 
+      return companies
+        .map((company) => {
+          const courses = (company.courses ?? []).filter((course) => {
+            const dateValue =
+              course.createdAt ||
+              course.updatedAt ||
+              course.date ||
+              course.created_at;
 
-export const getFinanceCompaniesFilters = (start, end, period) => (state) => {
-  const companies = state.finance.companies ?? [];
+            if (!dateValue) return false;
 
-  if (period === "all") {
-    return companies;
-  }
+            const courseTime = new Date(dateValue).getTime();
 
-  const startTime = new Date(start).getTime();
-  const endTime = new Date(end).getTime();
+            return courseTime >= startTime && courseTime <= endTime;
+          });
 
-  return companies
-    .map((company) => {
-      const courses = (company.courses ?? []).filter((course) => {
-        const dateValue =
-          course.createdAt ||
-          course.updatedAt ||
-          course.date ||
-          course.created_at;
+          const totalRevenue =
+            courses.reduce((acc, cur) => acc + Number(cur.total ?? 0), 0) / 100;
 
-        if (!dateValue) {
-          return false;
-        }
+          const siteRevenue =
+            courses.reduce((acc, cur) => acc + Number(cur.commissionPrice ?? 0), 0) / 100;
 
-        const courseTime = new Date(dateValue).getTime();
-
-
-        return courseTime >= startTime && courseTime <= endTime;
-      });
-
-      return {
-        ...company,
-        courses,
-      };
-    })
-    .filter((company) => company.courses.length > 0);
-};
+          return {
+            ...company,
+            courses,
+            racesCount: courses.length,
+            totalRevenue,
+            siteRevenue,
+            totalReversed: totalRevenue - siteRevenue,
+          };
+        })
+        .filter((company) => company.courses.length > 0);
+    };
