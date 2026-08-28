@@ -8,6 +8,7 @@ import {setTeam} from "../../utils/store/slices/TeamEmployerSlice.js";
 import {toast} from "react-toastify";
 import {usePopupContext} from "../../utils/hook/usePopup.jsx";
 import {setEntrepriseCommission} from "../../utils/store/slices/EntrepriseSlice.js";
+import PropTypes from "prop-types";
 
 
 function DriverDetailPopUp({driverId}) {
@@ -219,6 +220,11 @@ function DriverDetailPopUp({driverId}) {
       </div>
     </div>
   );
+}
+
+
+DriverDetailPopUp.propTypes = {
+  driverId: PropTypes.any,
 }
 
 export default DriverDetailPopUp;

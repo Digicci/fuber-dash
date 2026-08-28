@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 
 
 function TeamInfoTable({item}) {
@@ -12,6 +13,11 @@ function TeamInfoTable({item}) {
           <td>{item.ville}</td>
         </tr>
   );
+}
+
+
+TeamInfoTable.propTypes = {
+  item: PropTypes.object,
 }
 
 export default TeamInfoTable;

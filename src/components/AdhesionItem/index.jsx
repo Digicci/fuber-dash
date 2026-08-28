@@ -2,6 +2,7 @@ import './adhesionItem.scss'
 import profile from "../../assets/drivercard.webp";
 import {usePopupContext} from "../../utils/hook/usePopup.jsx";
 import AdhesionPopup from "../AdhesionPopup/index.jsx";
+import PropTypes from "prop-types";
 
 function AdhesionItem({item}){
   const {
@@ -45,6 +46,11 @@ function AdhesionItem({item}){
       </div>
     </>
   );
+}
+
+
+AdhesionItem.propTypes = {
+  item: PropTypes.object,
 }
 
 export default AdhesionItem;

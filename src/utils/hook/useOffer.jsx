@@ -1,5 +1,6 @@
 import {createContext,useContext} from "react";
 import {useAxios} from "./useAxios.jsx";
+import PropTypes from "prop-types";
 
 const AuthContext = createContext();
 const basePath = 'offre';
@@ -28,4 +29,8 @@ function useProviderOffer() {
     register,
     getOffer
   }
+}
+
+ProvideOffer.propTypes = {
+  children: PropTypes.node
 }

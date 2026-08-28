@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 function AdhesionTable({item}) {
   return (
     <tr>
@@ -13,6 +14,11 @@ function AdhesionTable({item}) {
       <td>{item.ville}</td>
     </tr>
   );
+}
+
+
+AdhesionTable.propTypes = {
+  item: PropTypes.object,
 }
 
 export default AdhesionTable;

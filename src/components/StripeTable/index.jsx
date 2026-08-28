@@ -1,4 +1,5 @@
 import './stripeTable.scss'
+import PropTypes from "prop-types";
 function StripeTable({payments}){
   return(
     <table className={'stripe-table'}>
@@ -45,6 +46,11 @@ function StripeTable({payments}){
       </tbody>
     </table>
   );
+}
+
+
+StripeTable.propTypes = {
+  payments: PropTypes.array,
 }
 
 export default StripeTable;

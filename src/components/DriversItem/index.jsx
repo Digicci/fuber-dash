@@ -2,6 +2,7 @@ import profile from "../../assets/drivercard.webp"
 import './driversItem.scss'
 import {usePopupContext} from "../../utils/hook/usePopup.jsx";
 import DriverDetailPopUp from "../DriverDetailPopup/index.jsx";
+import PropTypes from "prop-types";
 
 function DriversItem({item}){
 
@@ -45,6 +46,11 @@ function DriversItem({item}){
       </div>
     </>
   );
+}
+
+
+DriversItem.propTypes = {
+  item: PropTypes.object,
 }
 
 export default DriversItem;

@@ -1,4 +1,5 @@
 import './offreItem.scss'
+import PropTypes from "prop-types";
 function OffreItem({item}){
   const [dateBeginning, hourBeginning] = item.date_debut.split('T')
   const displayHourBeginning = hourBeginning.split('.')[0]
@@ -46,6 +47,11 @@ function OffreItem({item}){
       </div>
     </>
   )
+}
+
+
+OffreItem.propTypes = {
+  item: PropTypes.object,
 }
 
 export default OffreItem;

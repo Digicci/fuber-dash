@@ -1,10 +1,11 @@
 import {useContext,createContext} from "react";
 import {useCsrf} from "./useCsrf.jsx";
 import axios from "axios";
+import {API_BASE_URL} from "../../config";
 
 const AxiosContext = createContext();
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_PATH
+  baseURL: API_BASE_URL
 })
 
 // eslint-disable-next-line react/prop-types

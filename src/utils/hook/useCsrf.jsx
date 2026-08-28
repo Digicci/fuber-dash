@@ -1,7 +1,9 @@
 import {useState, useContext, createContext} from "react";
 import axios from "axios";
+import PropTypes from "prop-types";
+import {API_BASE_URL} from "../../config";
 
-const apiPath = import.meta.env.VITE_API_BASE_PATH;
+
 const CsrfContext = createContext();
 
 export function ProvideCsrf({ children }){
@@ -16,7 +18,7 @@ export const useCsrf = () => {
 function useProvideCsrf(){
   const [token,setToken] = useState(null);
   const getCsrfToken = () => {
-    axios.get(`${apiPath}/security/csrf/form`, {withCredentials: true}).then(res => {
+    axios.get(`${API_BASE_URL}/security/csrf/form`, {withCredentials: true}).then(res => {
       setToken(res.data.csrfToken);
       return true
     })
@@ -25,4 +27,8 @@ function useProvideCsrf(){
     token,
     getCsrfToken
   }
+}
+
+ProvideCsrf.propTypes = {
+  children: PropTypes.node
 }

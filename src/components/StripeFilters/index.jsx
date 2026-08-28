@@ -1,4 +1,5 @@
 import './stripeFilters.scss'
+import PropTypes from "prop-types";
 
 function StripeFilters({search,setSearch,status,setStatus,onSearch}){
   const statut = [
@@ -42,6 +43,15 @@ function StripeFilters({search,setSearch,status,setStatus,onSearch}){
       </form>
     </div>
   )
+}
+
+
+StripeFilters.propTypes = {
+  onSearch: PropTypes.func,
+  search: PropTypes.any,
+  setSearch: PropTypes.func,
+  setStatus: PropTypes.func,
+  status: PropTypes.any,
 }
 
 export default StripeFilters;

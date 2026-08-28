@@ -1,4 +1,5 @@
 import "./financeCards.scss"
+import PropTypes from "prop-types";
 
 function FinanceCards({companies}){
   const totalRevenue = companies.reduce(
@@ -32,6 +33,11 @@ function FinanceCards({companies}){
       </div>
     </div>
   )
+}
+
+
+FinanceCards.propTypes = {
+  companies: PropTypes.array,
 }
 
 export default FinanceCards

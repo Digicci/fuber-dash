@@ -4,6 +4,7 @@ import {usePopupContext} from "../../utils/hook/usePopup.jsx";
 import {toast} from "react-toastify";
 import {useDispatch} from "react-redux";
 import {setEntreprise} from "../../utils/store/slices/EntrepriseSlice.js";
+import PropTypes from "prop-types";
 
 function AdhesionPopup({driver}) {
 
@@ -123,6 +124,11 @@ function AdhesionPopup({driver}) {
       </div>
     </div>
   );
+}
+
+
+AdhesionPopup.propTypes = {
+  driver: PropTypes.object,
 }
 
 export default AdhesionPopup;

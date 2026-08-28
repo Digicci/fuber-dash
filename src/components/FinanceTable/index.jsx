@@ -1,4 +1,5 @@
 import "./financeTable.scss"
+import PropTypes from "prop-types";
 
 
 function FinanceTable({companies}) {
@@ -34,6 +35,11 @@ function FinanceTable({companies}) {
       </tbody>
     </table>
   )
+}
+
+
+FinanceTable.propTypes = {
+  companies: PropTypes.array,
 }
 
 export default FinanceTable;

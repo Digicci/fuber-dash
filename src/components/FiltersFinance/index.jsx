@@ -1,4 +1,5 @@
 import "./filtersFinance.scss"
+import PropTypes from "prop-types";
 
 function FiltersFinance({setPeriod,period,search,setSearch,onSearch}){
   const periods = [
@@ -43,4 +44,13 @@ function FiltersFinance({setPeriod,period,search,setSearch,onSearch}){
     </div>
   )
 }
+
+FiltersFinance.propTypes = {
+  onSearch: PropTypes.func,
+  period: PropTypes.any,
+  search: PropTypes.any,
+  setPeriod: PropTypes.func,
+  setSearch: PropTypes.func,
+}
+
 export default FiltersFinance;
