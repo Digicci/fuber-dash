@@ -26,7 +26,8 @@ function useProvideAxios() {
   const setHeader = () => {
     const JWT = localStorage.getItem('admin_token')
     api.defaults.headers.common['Authorization'] = JWT ? `Bearer ${JWT}` : null ;
-    api.defaults.headers.post['X-CSRF-TOKEN'] = csrf.token;
+    // Sur `common` et non `post` : les PUT et DELETE partaient sans token CSRF.
+    api.defaults.headers.common['X-CSRF-TOKEN'] = csrf.token;
     api.defaults.withCredentials = true;
   }
 

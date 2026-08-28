@@ -1,7 +1,7 @@
 import {useState, useContext, createContext} from "react";
 import axios from "axios";
 
-const apiPath = "http://localhost:8000/api";
+const apiPath = import.meta.env.VITE_API_BASE_PATH;
 const CsrfContext = createContext();
 
 export function ProvideCsrf({ children }){

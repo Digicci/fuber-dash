@@ -44,7 +44,7 @@ function OffreList(){
               return(
                 <OffreItem key={index} item={item}/>
               )
-            }) : <p>Il y pas d'offres ajoutées</p>
+            }) : <p>Il y pas d&apos;offres ajoutées</p>
           }
         </div>
       </div>

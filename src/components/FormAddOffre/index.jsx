@@ -22,7 +22,7 @@ function FormAddOffre(){
   const toastTimer = 2000
 
   function validateForm(){
-    for(const[_, value] of Object.entries(offre)){
+    for(const value of Object.values(offre)){
       if((typeof  value === 'string' && value === '')){
         error.current = 'Veuillez remplir tous les champs'
         return false;

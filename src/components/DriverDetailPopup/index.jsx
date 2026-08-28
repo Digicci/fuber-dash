@@ -65,7 +65,12 @@ function DriverDetailPopUp({driverId}) {
   }
 
   const toggleUpdate = (e) => {
-    const field = e.target.attributes.datafield.value
+    // L'attribut est declare `data-field` en JSX (datafield n'est pas un
+    // attribut DOM valide) : on le lit via le dataset, en remontant au bouton
+    // si le clic a atterri sur l'icone qu'il contient.
+    const target = e.target.closest('[data-field]')
+    const field = target && target.dataset.field
+    if (!field) return
     let state = {...update}
     state[field] = !state[field]
     setUpdate(state)
@@ -116,7 +121,7 @@ function DriverDetailPopUp({driverId}) {
         pauseOnHover: true,
         icon: '👌',
       })
-    }).catch((err) => {
+    }).catch(() => {
       toast.error('Une erreur est survenue',{
         position: "top-right",
         autoClose: 2000,
@@ -147,7 +152,7 @@ function DriverDetailPopUp({driverId}) {
                           <label htmlFor="">Commission: </label>
                           <input type="text" name={'commission'} value={entrepriseCopy.commission ?? ''} placeholder={entreprise.commission} onChange={handleChange} />
                           <button onClick={updateCom}><i className="ph-bold ph-check"></i></button>
-                          <button datafield="commission" onClick={toggleUpdate}><i className="ph-bold ph-x"></i></button>
+                          <button data-field="commission" onClick={toggleUpdate}><i className="ph-bold ph-x"></i></button>
                         </>
                     ) : (
                         <p key={index}>
@@ -157,7 +162,7 @@ function DriverDetailPopUp({driverId}) {
                       {
                         driver[data]
                       }
-                      <button className={'button-update'}><i className="ph-bold ph-pencil" datafield="commission" onClick={toggleUpdate}></i></button>
+                      <button className={'button-update'}><i className="ph-bold ph-pencil" data-field="commission" onClick={toggleUpdate}></i></button>
                     </p>)
                 ) : (
                     <p key={index}>
@@ -168,7 +173,7 @@ function DriverDetailPopUp({driverId}) {
                         driver[data]
                       }
                       {data === 'commission' &&
-                          <button className={'button-update'}><i className="ph-bold ph-pencil" datafield="commission" onClick={toggleUpdate}></i></button>
+                          <button className={'button-update'}><i className="ph-bold ph-pencil" data-field="commission" onClick={toggleUpdate}></i></button>
                       }
                     </p>
                 )
@@ -197,7 +202,7 @@ function DriverDetailPopUp({driverId}) {
                 <TeamInfoTable key={index} item={item}/>
               )
             }) : <tr>
-              <td colSpan="7">Il y a pas d'équipe inscrit</td>
+              <td colSpan="7">Il y a pas d&apos;équipe inscrit</td>
             </tr>}
             </tbody>
           </table>

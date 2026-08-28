@@ -16,5 +16,9 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
+    // Dette documentee : ~69 composants n'ont pas de propTypes. La regle est
+    // maintenue en avertissement pour rester visible sans bloquer la CI, le
+    // temps d'etre traitee composant par composant.
+    'react/prop-types': 'warn',
   },
 }

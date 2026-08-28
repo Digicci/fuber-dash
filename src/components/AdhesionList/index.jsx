@@ -8,7 +8,7 @@ function AdhesionList() {
   return (
     <>
       <div className={'list-adhesion'}>
-        <h4>Liste d'adhésion</h4>
+        <h4>Liste d&apos;adhésion</h4>
         <div className={'list-item-adhesion'}>
           {entreprisePending.length > 0 ? entreprisePending.map((item, index) => {
             return(

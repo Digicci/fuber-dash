@@ -1,4 +1,4 @@
-import {createContext, useContext, useState} from "react";
+import {createContext, useContext, useState, useEffect, useRef, useCallback} from "react";
 import {useAxios} from "./useAxios.jsx";
 import  {useNavigate} from "react-router-dom";
 import {useSelector, useDispatch} from "react-redux";
@@ -35,30 +35,56 @@ function useProvideAuthAdmin(){
   const dispatch = useDispatch();
   const auth = useSelector(getAuth);
 
-  axios.api.interceptors.response.use(
-      (response) => response,
-      async function (error) {
-        const originalRequest = error.config
-        if (error.config.url !== '/admin/refreshToken' && error.response.status === 401 && !originalRequest._retry) {
-          originalRequest._retry = true;
+  const clearSession = useCallback(() => {
+    dispatch(setAuth(null))
+    localStorage.removeItem(LOCAL_STORAGE_ADMIN_JWT_TOKEN_KEY)
+    localStorage.removeItem(LOCAL_STORAGE_ADMIN_JWT_REFRESH_TOKEN_KEY)
+  }, [dispatch])
+
+  const clearSessionRef = useRef(clearSession)
+  clearSessionRef.current = clearSession
+
+  // L'intercepteur etait enregistre dans le corps du hook : il etait donc
+  // reempile a chaque rendu. Il purgeait de plus les tokens sur *toute* erreur
+  // (400, 500 compris), ce qui deconnectait l'admin a la moindre anomalie.
+  useEffect(() => {
+    const interceptorId = axios.api.interceptors.response.use(
+        (response) => response,
+        async (error) => {
+          const originalRequest = error.config
+          const status = error.response && error.response.status
+
+          if (status !== 401 || !originalRequest) {
+            return Promise.reject(error)
+          }
+          if (originalRequest.url === '/admin/refreshToken' || originalRequest._retry) {
+            clearSessionRef.current()
+            return Promise.reject(error)
+          }
+
           const refreshToken = localStorage.getItem(LOCAL_STORAGE_ADMIN_JWT_REFRESH_TOKEN_KEY)
-          if(refreshToken && refreshToken !== '') {
-            axios.api.defaults.headers.common['Authorization'] = `Bearer ${refreshToken}`
-            console.log('refreshToken')
-            await axios.api.post('/admin/refreshToken').then((response) => {
-              originalRequest.headers['Authorization'] = `Bearer ${response.data.token}`
-              axios.api.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`
-              localStorage.setItem(LOCAL_STORAGE_ADMIN_JWT_TOKEN_KEY, response.data.token)
+          if (!refreshToken) {
+            clearSessionRef.current()
+            return Promise.reject(error)
+          }
+
+          originalRequest._retry = true
+          try {
+            const response = await axios.api.post('/admin/refreshToken', null, {
+              headers: {Authorization: `Bearer ${refreshToken}`}
             })
+            localStorage.setItem(LOCAL_STORAGE_ADMIN_JWT_TOKEN_KEY, response.data.token)
+            originalRequest.headers['Authorization'] = `Bearer ${response.data.token}`
             return axios.api(originalRequest)
+          } catch (refreshError) {
+            clearSessionRef.current()
+            return Promise.reject(refreshError)
           }
         }
-        dispatch(setAdmin(null))
-        localStorage.removeItem(LOCAL_STORAGE_ADMIN_JWT_TOKEN_KEY)
-        localStorage.removeItem(LOCAL_STORAGE_ADMIN_JWT_REFRESH_TOKEN_KEY)
-        return Promise.reject(error);
-      }
-  )
+    )
+
+    return () => axios.api.interceptors.response.eject(interceptorId)
+  }, [axios])
 
   const signin = (email,mdp,token) => {
     let data
@@ -78,7 +104,6 @@ function useProvideAuthAdmin(){
     }
     if(localStorage.getItem(LOCAL_STORAGE_ADMIN_JWT_TOKEN_KEY)){
       axios.get(`${basePath}/get`).then((res) =>{
-        console.log(res)
         if(res.status === 401) {
           dispatch(setAuth(null));
           localStorage.removeItem(LOCAL_STORAGE_ADMIN_JWT_TOKEN_KEY);
@@ -88,7 +113,7 @@ function useProvideAuthAdmin(){
           dispatch(setAuth(null));
           localStorage.removeItem(LOCAL_STORAGE_ADMIN_JWT_TOKEN_KEY);
         }
-      }).catch((err) => {
+      }).catch(() => {
         dispatch(setAuth(null));
         localStorage.removeItem(LOCAL_STORAGE_ADMIN_JWT_TOKEN_KEY);
       })
@@ -167,21 +192,20 @@ function useProvideAuthAdmin(){
       commission: commission
     }
 
-    console.log('payload envoyé:', data);
     return axios.post(`${basePath}/updateDriverCommission`,data)
   }
 
   const signout = () => {
-    localStorage.removeItem(LOCAL_STORAGE_ADMIN_JWT_TOKEN_KEY);
-    localStorage.clear();
-    dispatch(setAuth(null));
+    clearSession();
     setAdmin(null);
     navigate("/login");
   }
-  const isConnected = () => {
+  useEffect(() => {
     getAdmin()
-    return auth.auth
-  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const isConnected = () => auth.auth
 
   return{
     admin,
